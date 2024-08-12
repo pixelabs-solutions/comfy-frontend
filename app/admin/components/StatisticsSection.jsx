@@ -3,6 +3,7 @@ import StatCard from './StatCard';
 
 const statisticsData = [
   {
+    id:0,
     title: "New calls",
     value: "430",
     percentage: "+3.2%",
@@ -10,6 +11,7 @@ const statisticsData = [
     comparisonText: "vs last week"
   },
   {
+    id:1,
     title: "New Interpreters",
     value: "27",
     percentage: "+3.2%",
@@ -17,6 +19,7 @@ const statisticsData = [
     comparisonText: "vs last week"
   },
   {
+    id:2,
     title: "New Clients",
     value: "3250",
     percentage: "+30.2%",
@@ -27,13 +30,12 @@ const statisticsData = [
 
 const StatisticsSection =()=> {
   return (
-    <section className="flex flex-col rounded-none">
-      <div className="px-9 py-px w-full rounded-2xl border border-solid border-neutral-300 max-md:px-5 max-md:max-w-full">
-        <div className="flex gap-5 max-md:flex-col">
+    <section className="flex flex-col rounded-none justify-center">
+      <div className="flex border  mt-8  rounded-xl  max-md:flex-col">
           {statisticsData.map((stat, index) => (
             <div key={index} className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
               {index > 0 && (
-                <div className="shrink-0 w-px border border-solid border-neutral-300 h-[175px]" />
+                <div className="shrink-0 w-px border-solid border-neutral-300" />
               )}
               <div className="flex grow gap-5 justify-between font-semibold max-md:mt-10">
                 <StatCard {...stat} />
@@ -41,7 +43,6 @@ const StatisticsSection =()=> {
             </div>
           ))}
         </div>
-      </div>
     </section>
   );
 }

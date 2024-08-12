@@ -1,48 +1,52 @@
 'use client'
+import { BiPlusCircle } from "react-icons/bi"; 
 import React from 'react';
 import Table from '../components/ManageUserTable';
 
 const App = () => {
   const columns = [
-    { label: 'Product', key: 'product' },
-    { label: 'Price', key: 'price' },
-    { label: 'Discount', key: 'discount' },
-    { label: 'Sold', key: 'sold' },
-    { label: 'Source', key: 'source' },
+    { label: 'Interpreters', key: 'product' },
+    { label: 'Status', key: 'price' },
+    { label: 'User Manager', key: 'discount' },
+    { label: '', key: '' },
+    { label: '', key: '' },
   ];
 
   const data = [
     {
       product: 'Headphone',
-      image: '/assets/images/product-headphones.jpg',
+      image: '/Admin/Ellipse 3.png',
       category: 'Digital',
       price: '$168.09',
-      discount: '$60.09',
-      sold: '170',
-      source: 'Direct',
+      discount: '20%',
+      sold: 'as',
+      source: '/Admin/stylus_note.png',
     },
-    {
-        product: 'Headphone',
-        image: '/assets/images/product-headphones.jpg',
-        category: 'Digital',
-        price: '$168.09',
-        discount: '$60.09',
-        sold: '170',
-        source: 'Direct',
-      },
-      {
-        product: 'Headphone',
-        image: '/assets/images/product-headphones.jpg',
-        category: 'Digital',
-        price: '$168.09',
-        discount: '$60.09',
-        sold: '170',
-        source: 'Direct',
-      },
     // Add more rows as needed
   ];
 
-  return <Table columns={columns} data={data} />;
+  return(
+  <>
+  <h1 className='text-[25px] font-bold '>Manage Users</h1>
+        <p className='text-[#666777] text-sm my-2'>Monday, 29, April, 2024</p>
+        <div className='w-full flex justify-end gap-5 mb-8'>
+            <button className='bg-[#E1F2E5] rounded-full flex gap-2 py-1 px-2 items-center text-[#656676]'>
+              <div className='bg-[#34A853] h-2 w-2 rounded-full'></div>
+              <span className=''>Active Interpreters</span>
+              <p className='font-bold'>278</p>
+            </button>
+            <button className="flex items-center px-2 gap-2 bg-[#F5F7F9] ">
+              Add Users <BiPlusCircle />
+            </button>
+            <select name="" id="" className='bg-[#F5F7F9] px-2 '>
+              <option value="" className='bg-[#F5F7F9]'>Weekly</option>
+              <option value="" className='bg-[#F5F7F9]'>Daily</option>
+              <option value="" className='bg-[#F5F7F9]'>Monthly</option>
+            </select>
+        </div>
+   <Table columns={columns} data={data}  />
+   </>
+  )
 };
 
 export default App;
