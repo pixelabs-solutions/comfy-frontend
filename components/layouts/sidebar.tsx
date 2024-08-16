@@ -1,4 +1,16 @@
+
 'use client';
+import { BiLogIn } from "react-icons/bi"; 
+
+import { FiUsers } from "react-icons/fi"; 
+import { IoIosNotificationsOutline } from "react-icons/io"; 
+import { MdOutlineManageAccounts } from "react-icons/md"; 
+// import { IoCardSharp } from "react-icons/io"; 
+import { HiOutlinePhoneMissedCall } from "react-icons/hi"; 
+import { BiHistory } from "react-icons/bi"; 
+import { MdPayments } from "react-icons/md"; 
+
+import { HiOutlineViewGridAdd } from "react-icons/hi"; 
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
@@ -33,7 +45,6 @@ import IconMenuAuthentication from '@/components/icon/menu/icon-menu-authenticat
 import IconMenuDocumentation from '@/components/icon/menu/icon-menu-documentation';
 import { usePathname } from 'next/navigation';
 import { getTranslation } from '@/i18n';
-
 const Sidebar = () => {
     const dispatch = useDispatch();
     const { t } = getTranslation();
@@ -85,11 +96,11 @@ const Sidebar = () => {
     return (
         <div className="bg-[#D4D4D4]">
             <nav
-                className={`sidebar fixed bottom-0 top-0 z-50 h-full min-h-screen w-[240px]  transition-all duration-300 ${semidark ? 'text-white-dark' : ''}`}
+                className={`sidebar fixed bottom-0 top-0 z-50 h-full min-h-screen w-[240px] pl-4 transition-all duration-300 ${semidark ? 'text-white-dark' : ''}`}
             >
                 <div className="h-full bg-[#F5F7F9] dark:bg-black py-[2.5rem]" >
                     <div className="flex items-center justify-between px-4 py-3">
-                        <Link href="/" className="main-logo flex shrink-0 items-center">
+                     {/*   <Link href="/" className="main-logo flex shrink-0 items-center">
                             <img className="ml-[5px] w-8 flex-none" src="/assets/images/logo.svg" alt="logo" />
                             <span className="align-middle text-2xl font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">VRISTO</span>
                         </Link>
@@ -100,39 +111,106 @@ const Sidebar = () => {
                             onClick={() => dispatch(toggleSidebar())}
                         >
                             <IconCaretsDown className="m-auto rotate-90" />
-                        </button>
+                        </button>*/}
+
+                        {/* add profile image from the public folder and and user name and email as a profile detail in one div with flex row  */}
+
+                        <div className="flex items-center justify-center gap-2">
+                            <img className="w-[30px] h-[30px] rounded-full object-cover" src="" alt="user" />
+                            <div className="flex flex-col  gap-1">
+                                <span className="text-sm font-medium text-black dark:text-white-dark">{t('admin')}</span>
+                                <span className="text-xs font-medium text-gray-600 dark:text-gray-400">admin@vristo.com</span>
+                            </div>
+                        </div>
                     </div>
-                    <PerfectScrollbar className="relative h-[calc(100vh-80px)]">
-                        <ul className="relative space-y-0.5 p-4 py-0 font-semibold">
+                    <PerfectScrollbar className="relative mt-12 h-[calc(100vh-80px)] ">
+                        <div className="flex flex-col justify-between h-[calc(100vh-200px)]">
+
+                   
+                        <ul className="relative space-y-0.5  py-0 font-semibold">
                           
 
                     
 
                             <li className="nav-item">
                                 <ul>
-                                    <li className="nav-item">
-                                        <Link href="/apps/chat" className="group">
+                                    <li className="nav-item mb-0 sm:mb-12">
+                                        <Link href="/admin/dashboard" className="group">
                                             <div className="flex items-center">
-                                                <IconMenuChat className="shrink-0 group-hover:!text-primary" />
-                                                <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">{t('chat')}</span>
+<HiOutlineViewGridAdd className="shrink-0 group-hover:!text-primary" />
+
+                                                {/* <IconMenuChat /> */}
+                                                <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Dashboard</span>
+                                            </div>
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link href="/admin/manage_user" className="group">
+                                            <div className="flex items-center">
+                                                <FiUsers className="shrink-0 group-hover:!text-primary" />
+                                                <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Manage User</span>
                                             </div>
                                         </Link>
                                     </li>
                                     <li className="nav-item">
                                         <Link href="/apps/mailbox" className="group">
                                             <div className="flex items-center">
-                                                <IconMenuMailbox className="shrink-0 group-hover:!text-primary" />
-                                                <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">{t('mailbox')}</span>
+                                                 <BiHistory className="shrink-0 group-hover:!text-primary" />
+                                                <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Billing History</span>
                                             </div>
                                         </Link>
                                     </li>
-                           
+
+                                    <li className="nav-item">
+                                        <Link href="/apps/mailbox" className="group">
+                                            <div className="flex items-center">
+                                                <HiOutlinePhoneMissedCall  className="shrink-0 group-hover:!text-primary" />
+                                                <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Call History</span>
+                                            </div>
+                                        </Link>
+                                    </li>
+
+                                    <li className="nav-item">
+                                        <Link href="/apps/mailbox" className="group">
+                                            <div className="flex items-center">
+                                              <MdPayments  className="shrink-0 group-hover:!text-primary" />
+                                                <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Payments</span>
+                                            </div>
+                                        </Link>
+                                    </li>
+
+                                    <li className="nav-item">
+                                        <Link href="/apps/mailbox" className="group">
+                                            <div className="flex items-center">
+                                            <MdOutlineManageAccounts className="shrink-0 group-hover:!text-primary" />
+                                                <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Pending Accounts</span>
+                                            </div>
+                                        </Link>
+                                    </li>
+
+                                    <li className="nav-item">
+                                        <Link href="/apps/mailbox" className="group">
+                                            <div className="flex items-center">
+                                                <IoIosNotificationsOutline  className="shrink-0 group-hover:!text-primary" />
+                                                <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Notifications</span>
+                                            </div>
+                                        </Link>
+                                    </li>
+
                                 </ul>
                             </li>
 
                            
                         </ul>
+                        <Link href="/apps/mailbox" className="group">
+                                            <div className="flex items-center">
+                                            <BiLogIn  className="shrink-0 group-hover:!text-primary" />
+                                                <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Log Out</span>
+                                            </div>
+                                        </Link>
+                                        </div>
                     </PerfectScrollbar>
+                    
                 </div>
             </nav>
         </div>
