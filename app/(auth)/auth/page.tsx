@@ -17,7 +17,7 @@ const CoverLogin = () => {
           <SignInForm />
         </section>
         <div className="  w-full  lg:max-w-[50%]  ">
-                     
+      
                      <img src="/assets/images/auth/login.png" alt="Cover Image" className="w-full lg:max-h-[700px] " />
             
              
