@@ -20,8 +20,8 @@ const Form = () => {
                 </select>
                 <div className="mt-5 grid w-full grid-cols-3 gap-2">
                     <input type="text" name="" id="" className="rounded-md bg-[#F5F7F9] p-3 outline-none text-lg text-[#A3A3A3]" placeholder="Last Name" />
-                    <input type="text" name="" id="" className="text-lg rounded-md bg-[#F5F7F9] p-3 outline-none text-[#A3A3A3]" placeholder="Last Name" />
-                    <input type="text" name="" id="" className="text-lg rounded-md bg-[#F5F7F9] p-3 outline-none text-[#A3A3A3]" placeholder="Last Name" />
+                    <input type="text" name="" id="" className="text-lg rounded-md bg-[#F5F7F9] p-3 outline-none text-[#A3A3A3]" placeholder="Middle name" />
+                    <input type="text" name="" id="" className="text-lg rounded-md bg-[#F5F7F9] p-3 outline-none text-[#A3A3A3]" placeholder="First Name" />
                 </div>
                 <div className="mt-5 flex w-full justify-between rounded-md bg-[#F5F7F9] p-2">
                     <input
@@ -68,7 +68,7 @@ const Form = () => {
                         className="emailInput w-[90%] bg-transparent text-lg text-[#A3A3A3] outline-none"
                         type="password"
                         id="emailInput"
-                        placeholder="Enter Password"
+                        placeholder="Create Password"
                         aria-label="Enter Email Address"
                         tabIndex="0"
                     />
