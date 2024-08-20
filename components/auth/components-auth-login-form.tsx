@@ -12,17 +12,17 @@ const SignInForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col items-start pl-4 mt-44 w-full max-md:mt-10 max-md:max-w-full">
-      <h2 className="text-4xl">Sign in</h2>
+    <form onSubmit={handleSubmit} className="flex flex-col items-start lg:mt-20 xl:mt-44  mt-10 w-full max-md:mt-10 max-md:max-w-full">
+      <h2 className="text-4xl font-bold">Sign in</h2>
       <input
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="type your email"
         aria-label="Email"
-        className="self-stretch px-6 py-4 mt-7 rounded-lg bg-slate-100 text-neutral-400 max-md:px-5 max-md:max-w-full"
+        className="self-stretch px-6 py-3 mt-7 rounded-md outline-none bg-slate-100 text-neutral-400 max-md:px-5 max-md:max-w-full"
       />
-      <div className="flex flex-wrap gap-5 justify-between self-stretch px-6 py-4 mt-6 rounded-lg bg-slate-100 text-neutral-400 max-md:px-5 max-md:max-w-full">
+      <div className="flex flex-wrap gap-5 justify-between self-stretch px-6 py-3 mt-6 rounded-lg bg-slate-100 text-neutral-400 max-md:px-5 max-md:max-w-full">
         <input
           type={showPassword ? 'text' : 'password'}
           value={password}
@@ -39,9 +39,10 @@ const SignInForm: React.FC = () => {
          {showPassword ? <IconEye/> : <IconEye/>}
         </button>
       </div>
-      <button type="submit" className="px-20 py-4 mt-7 whitespace-nowrap bg-yellow-400 rounded-lg max-md:px-5">
+      <button type="submit" className="w-full lg:w-[40%] py-4 mt-7 whitespace-nowrap bg-[#FBCC1D] font-bold rounded-lg max-md:px-5">
         Login
       </button>
+      <p className='mt-[30%]'>Forgot Password</p>
     </form>
   );
 };

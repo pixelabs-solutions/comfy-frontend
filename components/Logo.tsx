@@ -9,7 +9,7 @@ function LogoSite() {
         alt=""
         className="object-contain shrink-0 aspect-[1.45] w-[65px]"
       />
-      <div className="my-auto basis-auto">Comfy Bi-Linguals</div>
+      <div className="my-auto basis-auto font-bold">Comfy Bi-Linguals</div>
     </div>
   );
 }

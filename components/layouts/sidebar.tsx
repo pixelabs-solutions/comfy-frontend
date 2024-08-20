@@ -153,7 +153,7 @@ const Sidebar = () => {
                                         </Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link href="/apps/mailbox" className="group">
+                                        <Link href="/admin/billinghistory" className="group">
                                             <div className="flex items-center">
                                                  <BiHistory className="shrink-0 group-hover:!text-primary" />
                                                 <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Billing History</span>
@@ -162,7 +162,7 @@ const Sidebar = () => {
                                     </li>
 
                                     <li className="nav-item">
-                                        <Link href="/apps/mailbox" className="group">
+                                        <Link href="/admin/callhistory" className="group">
                                             <div className="flex items-center">
                                                 <HiOutlinePhoneMissedCall  className="shrink-0 group-hover:!text-primary" />
                                                 <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Call History</span>
@@ -171,7 +171,7 @@ const Sidebar = () => {
                                     </li>
 
                                     <li className="nav-item">
-                                        <Link href="/apps/mailbox" className="group">
+                                        <Link href="/admin/payment" className="group">
                                             <div className="flex items-center">
                                               <MdPayments  className="shrink-0 group-hover:!text-primary" />
                                                 <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Payments</span>
@@ -180,7 +180,7 @@ const Sidebar = () => {
                                     </li>
 
                                     <li className="nav-item">
-                                        <Link href="/apps/mailbox" className="group">
+                                        <Link href="/admin/pendingUsers" className="group">
                                             <div className="flex items-center">
                                             <MdOutlineManageAccounts className="shrink-0 group-hover:!text-primary" />
                                                 <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Pending Accounts</span>
@@ -189,7 +189,7 @@ const Sidebar = () => {
                                     </li>
 
                                     <li className="nav-item">
-                                        <Link href="/apps/mailbox" className="group">
+                                        <Link href="/admin/notification" className="group">
                                             <div className="flex items-center">
                                                 <IoIosNotificationsOutline  className="shrink-0 group-hover:!text-primary" />
                                                 <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Notifications</span>

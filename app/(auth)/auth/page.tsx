@@ -11,24 +11,14 @@ export const metadata: Metadata = {
 
 const CoverLogin = () => {
     return (
-        <main className="flex overflow-hidden flex-wrap gap-10 pl-20 text-xl justify-between font-semibold text-black bg-white max-md:pl-5">
-        <section className="flex flex-col lg:w-[35%] mt-7 max-md:max-w-full">
-          <LogoSite />
-          <SignInForm />
-        </section>
-        <div className="  w-full  lg:max-w-[50%]  ">
-      
-                     <img src="/assets/images/auth/login.png" alt="Cover Image" className="w-full lg:max-h-[700px] " />
-            
-             
-         </div>
-      </main>
+        <main className="flex lg:flex-row flex-col bg-white h-screen lg:gap-[10%] ">
+            <section className="lg:mt-7 mt-2 flex lg:w-[40%] flex-col 2xl:px-32 xl:px-28 md:px-16  px-5">
+                <LogoSite />
+                <SignInForm />
+            </section>
+            <div className="w-[50%]  lg:flex hidden bg-cover h-screen" style={{ backgroundImage: "url('/assets/images/auth/login.png')" }}></div>
+        </main>
     );
 };
 
 export default CoverLogin;
-
-
-
-
-
