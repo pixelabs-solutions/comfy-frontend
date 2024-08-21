@@ -2,9 +2,10 @@ import React from 'react';
 import Languages from './components/languages';
 import TopRated from './components/Toprated.jsx';
 const dashboard = () => {
+    // left-0 right-0 top-0 bottom-0  bg-[#b9b9b9] relative z-[100] bg-opacity-[0.8]
     return (
-        <div>
-            <div className=" bg-[#FFF9E3] px-4 md:px-[80px] py-[60px] relative md:pb-20">
+        <>
+            <div className="bg-[#FFF9E3] px-4 rounded-t-[20px] md:px-[80px] py-[60px]  relative md:pb-20">
                 <div className="flex  items-center justify-between">
                     <div>
                         <h1 className="text-[25px] font-bold ">Dashboard</h1>
@@ -18,11 +19,14 @@ const dashboard = () => {
                 </div>
                 <Languages />
             </div>
-            <div className=' px-4 md:px-[80px] md:py-[60px] mt-20'>
+            <div className='bg-white  px-4 md:px-[80px] md:py-[60px] mt-20'>
                 <h1 className='font-bold text-xl my-2'>Top Rated Languages</h1>
             <TopRated />
             </div>
-        </div>
+            {/* {!"Popoup" && ( */}
+                    {/* <LanguageDropdown setSelectedLanguage={setSelectedLanguage} setPopoup={setPopoup} className="top-[100%]" /> */}
+            {/* )} */}
+        </>
     );
 };
 

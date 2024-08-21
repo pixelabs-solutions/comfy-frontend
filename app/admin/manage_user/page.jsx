@@ -1,9 +1,11 @@
 'use client';
 import { BiPlusCircle } from 'react-icons/bi';
-import React from 'react';
+import React, { useState } from 'react';
 import Table from '../components/ManageUserTable';
+import AddUserForm from '@/app/signup/page';
 
 const App = () => {
+    const [Form ,SetForm] =useState(false)
     const columns = [
         { label: 'Interpreters', key: 'product' },
         { label: 'Status', key: 'price' },
@@ -82,7 +84,7 @@ const App = () => {
                     <span className="">Active Interpreters</span>
                     <p className="font-bold">278</p>
                 </button>
-                <button className="flex items-center gap-2 bg-[#F5F7F9] px-2 ">
+                <button onClick={() => SetForm(true)} className="flex items-center gap-2 bg-[#F5F7F9] px-2 ">
                     Add Users <BiPlusCircle />
                 </button>
                 <select name="" id="" className="bg-[#F5F7F9] px-2 ">
@@ -97,6 +99,7 @@ const App = () => {
                     </option>
                 </select>
             </div>
+            {Form && <div className='fixed left-0 right-0 top-0 bottom-0 bg-[#B9B9B970] z-[100]'><AddUserForm /></div>}
             <Table columns={columns} data={data} />
         </>
     );

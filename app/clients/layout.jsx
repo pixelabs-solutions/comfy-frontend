@@ -15,7 +15,7 @@ export default function DefaultLayout({ children }) {
                 <Overlay />
                 <MainContainer>
                     <Sidebar />
-                    <div className="main-content flex min-h-screen flex-col bg-white rounded-xl ">
+                    <div className="main-content flex min-h-screen flex-col rounded-[20px] bg-white  ">
                         <Header />
                         <ContentAnimation>{children}</ContentAnimation>
                     </div>
