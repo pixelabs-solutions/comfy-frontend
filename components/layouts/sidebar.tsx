@@ -45,6 +45,7 @@ import IconMenuAuthentication from '@/components/icon/menu/icon-menu-authenticat
 import IconMenuDocumentation from '@/components/icon/menu/icon-menu-documentation';
 import { usePathname } from 'next/navigation';
 import { getTranslation } from '@/i18n';
+import Nottification from "@/app/nottification/page";
 const Sidebar = () => {
     const dispatch = useDispatch();
     const { t } = getTranslation();
@@ -95,6 +96,7 @@ const Sidebar = () => {
 
     return (
         <div className="bg-[#D4D4D4]">
+            <Nottification />
             <nav
                 className={`sidebar fixed bottom-0 top-0 z-50 h-full min-h-screen w-[240px] pl-4 transition-all duration-300 ${semidark ? 'text-white-dark' : ''}`}
             >

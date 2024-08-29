@@ -1,7 +1,8 @@
-// Step2.js
+"use client"
 import React from 'react';
 import { Field, Form, ErrorMessage } from 'formik';
 import ImageUploader from './upload_file';
+import * as Yup from 'yup'; 
 
 // Define validation schema
 const validationSchema = Yup.object({
@@ -20,7 +21,7 @@ const Step2 = ({ values, setFieldValue, onBack }) => {
                     name="location"
                     type="text"
                     placeholder="Enter Your Location"
-                    className="emailInput text-[#A3A3A3] outline-none w-[90%] border-none bg-transparent text-lg text-[#A3A3A3]"
+                    className="emailInput outline-none w-[90%] border-none bg-transparent text-lg text-[#A3A3A3]"
                 />
                 <div className="my-auto flex flex-col">
                     <img loading="lazy" src="/Admin/add_location_alt.png" alt="Location icon" className="aspect-[1.29] w-[18px] object-contain" />
@@ -71,4 +72,3 @@ const Step2 = ({ values, setFieldValue, onBack }) => {
 };
 
 export default Step2;
-``

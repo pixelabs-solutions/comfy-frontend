@@ -1,8 +1,8 @@
 // AddUserForm.js
 import React, { useState } from 'react';
 import { Formik } from 'formik';
-import FormComponent from '../signup/components/FormComponent';
-import Step2 from './Step2';
+import FormComponent from './components/form';
+import Step2 from './components/Step2';
 
 const AddUserForm = () => {
     const [step, setStep] = useState(0);
