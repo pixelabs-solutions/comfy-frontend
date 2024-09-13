@@ -93,7 +93,8 @@ const Table = ({ columns, data }) => {
     };
 
     return (
-        <table className="overflow-hidden rounded-md">
+        <div className='overflow-x-auto text-nowrap'>
+            <table className="overflow-hidden rounded-md">
             <thead className="text-md  rounded-md border text-gray-600">
                 <tr>
                     <th className="bg-white">
@@ -122,6 +123,7 @@ const Table = ({ columns, data }) => {
                 ))}
             </tbody>
         </table>
+        </div>
     );
 };
 

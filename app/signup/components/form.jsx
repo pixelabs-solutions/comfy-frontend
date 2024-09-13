@@ -1,12 +1,11 @@
-// FormComponent.js
-import React from 'react';
-import { Field, Form, ErrorMessage } from 'formik';
+import React, { useState } from 'react';
+import { Field, Form, ErrorMessage, useFormikContext } from 'formik';
 import { AiOutlineUser, AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 import * as Yup from 'yup';
 
 // Define validation schema
 const validationSchema = Yup.object({
-    userType: Yup.string().required('User type is required'),
+    role: Yup.string().required('Role is required'),
     lastName: Yup.string().required('Last name is required'),
     middleName: Yup.string().required('Middle name is required'),
     firstName: Yup.string().required('First name is required'),
@@ -19,16 +18,39 @@ const validationSchema = Yup.object({
         .required('Confirm password is required'),
 });
 
-const FormComponent = ({ values, setFieldValue, onNext }) => {
+const FormComponent = ({ onNext }) => {
+    const { submitForm, validateForm } = useFormikContext();
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+    const togglePasswordVisibility = () => setShowPassword(!showPassword);
+    const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);
+
+    const handleNextClick = async () => {
+        // Trigger form validation
+        const errors = await validateForm();
+        if (Object.keys(errors).length === 0) {
+            submitForm(); // Form is valid, proceed with submission
+            onNext(); // Execute onNext if provided
+        } else {
+            // Handle errors if needed
+            console.log('Validation errors:', errors);
+        }
+    };
+
     return (
         <Form className="w-full">
-            <div className="mt-10 text-lg">
-                <Field as="select" name="userType" className="w-full rounded-md bg-[#F5F7F9] p-2 text-[#37384D] outline-none">
-                    <option value="" label="Select User Type" />
-                    <option value="Admin" label="Admin" />
-                    <option value="Sub Admin" label="Sub Admin" />
+            <div className="mt-6 text-lg">
+                <Field as="select" name="role" className="w-full rounded-md bg-[#F5F7F9] p-2 text-[#37384D] outline-none">
+                    <option value="" label="Select Role" />
+                    <option value="admin" label="Admin" />
+                    <option value="sub-admin" label="Sub Admin" />
+                    <option value="user-manager" label="User Manager" />
+                    <option value="interpreter" label="Interpreter" />
+                    <option value="client" label="Client" />
+                    <option value="billing-manager" label="Billing Manager" />
                 </Field>
-                <ErrorMessage name="userType" component="div" className="text-red-500" />
+                <ErrorMessage name="role" component="div" className="text-red-500" />
             </div>
 
             <div className="mt-5 grid w-full grid-cols-3 gap-2">
@@ -63,34 +85,57 @@ const FormComponent = ({ values, setFieldValue, onNext }) => {
                         <AiOutlineUser className="text-lg text-[#A3A3A3]" />
                     </div>
                 </div>
+
                 <Field as="select" name="gender" className="mt-5 flex w-full justify-between rounded-md bg-[#F5F7F9] p-2 text-lg text-[#A3A3A3] outline-none">
-                    <option value="" label="Gender" />
-                    <option value="Male" label="Male" />
-                    <option value="Female" label="Female" />
-                    <option value="Custom" label="Custom" />
+                    <option value="" label="Select Gender" />
+                    <option value="male" label="Male" />
+                    <option value="female" label="Female" />
+                    <option value="other" label="Other" />
                 </Field>
                 <ErrorMessage name="gender" component="div" className="text-red-500" />
             </div>
 
             <div className="flex gap-3">
                 <div className="mt-5 flex w-full justify-between rounded-md bg-[#F5F7F9] p-2">
-                    <Field type="password" name="password" className="w-[90%] bg-transparent text-lg text-[#A3A3A3] outline-none" placeholder="Create Password" />
+                    <Field
+                        type={showPassword ? 'text' : 'password'}
+                        name="password"
+                        className="w-[90%] bg-transparent text-lg text-[#A3A3A3] outline-none"
+                        placeholder="Create Password"
+                    />
                     <ErrorMessage name="password" component="div" className="text-red-500" />
                     <div className="my-auto flex flex-col">
-                        <AiFillEyeInvisible className="text-lg text-[#A3A3A3]" />
+                        {showPassword ? (
+                            <AiFillEye onClick={togglePasswordVisibility} className="text-lg text-[#A3A3A3] cursor-pointer" />
+                        ) : (
+                            <AiFillEyeInvisible onClick={togglePasswordVisibility} className="text-lg text-[#A3A3A3] cursor-pointer" />
+                        )}
                     </div>
                 </div>
 
                 <div className="mt-5 flex w-full justify-between rounded-md bg-[#F5F7F9] p-2">
-                    <Field type="password" name="confirmPassword" className="w-[90%] bg-transparent text-lg text-[#A3A3A3] outline-none" placeholder="Confirm Password" />
+                    <Field
+                        type={showConfirmPassword ? 'text' : 'password'}
+                        name="confirmPassword"
+                        className="w-[90%] bg-transparent text-lg text-[#A3A3A3] outline-none"
+                        placeholder="Confirm Password"
+                    />
                     <ErrorMessage name="confirmPassword" component="div" className="text-red-500" />
                     <div className="my-auto flex flex-col">
-                        <AiFillEye className="text-lg text-[#A3A3A3]" />
+                        {showConfirmPassword ? (
+                            <AiFillEye onClick={toggleConfirmPasswordVisibility} className="text-lg text-[#A3A3A3] cursor-pointer" />
+                        ) : (
+                            <AiFillEyeInvisible onClick={toggleConfirmPasswordVisibility} className="text-lg text-[#A3A3A3] cursor-pointer" />
+                        )}
                     </div>
                 </div>
             </div>
 
-            <button type="button" onClick={onNext} className="ms-auto mt-8 flex rounded-md bg-[#FBCC1D] px-12 py-[8px] text-lg font-semibold">
+            <button
+                type="button"
+                onClick={handleNextClick} // Trigger custom handleNextClick
+                className="ms-auto mt-8 flex rounded-md bg-[#FBCC1D] px-12 py-[8px] text-lg font-semibold"
+            >
                 Next
             </button>
         </Form>

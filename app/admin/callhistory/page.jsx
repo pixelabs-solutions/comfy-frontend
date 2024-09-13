@@ -31,8 +31,8 @@ const CallHistory = () => {
         <>
             <h1 className="text-[30px] font-bold ">Call History</h1>
             <p className="my-2 text-sm text-[#666777]">Monday, 29, April, 2024</p>
-            <div className="mb-8 flex w-full justify-end gap-5">
-                <div className="flex items-center gap-2 rounded-md bg-[#F5F7F9]  px-5 ">
+            <div className="mb-8 flex lg:flex-nowrap  flex-wrap w-full lg:justify-end gap-5">
+                <div className="flex items-center gap-2 rounded-md bg-[#F5F7F9]  px-5 lg:py-0 py-2">
                     <input type="text" placeholder="search by name or phone number" className="bg-transparent outline-none w-56" />
                     <BiSearchAlt2 className="text-lg  text-gray-500" />
                 </div>

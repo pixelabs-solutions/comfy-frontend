@@ -76,7 +76,7 @@ const ManageUser = () => {
         <>
             <h1 className="text-[30px] font-bold ">Manage Users</h1>
             <p className="my-2 text-sm text-[#666777]">Monday, 29, April, 2024</p>
-            <div className="mb-8 flex w-full justify-end gap-5">
+            <div className="mb-8 flex-wrap flex w-full lg:justify-end gap-5">
                 <button className="flex items-center gap-2 rounded-full bg-[#E1F2E5] px-2 py-1 text-[#656676]">
                     <div className="h-2 w-2 rounded-full bg-[#34A853]"></div>
                     <span className="">Active Interpreters</span>

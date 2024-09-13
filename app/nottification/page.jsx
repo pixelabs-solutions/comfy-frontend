@@ -1,6 +1,6 @@
 import React from 'react';
 import Notification_Comp from './component/Notification'
-const Nottification = () => {
+const Nottification = ({setNotifaction ,Notificationprop}) => {
     const DummyNottification = [
         { id: 0, notification: '2500usd sent to interpreter @steve' },
         { id: 1, notification: '2500usd sent to interpreter @steve' },
@@ -8,8 +8,8 @@ const Nottification = () => {
     ];
     return (
         <>
-            <div className='bg-[#00000033] fixed left-0 right-0 top-0 p-8 bottom-0 z-[1000]'>
-                <aside className='w-[25%] float-right bg-white p-8 h-full rounded-md'>
+            <div className='bg-[#00000033] fixed left-0 right-0 top-0 p-8 bottom-0 z-[1000]' onClick={() => setNotifaction(!false)}>
+                <aside className='w-[25%] float-right bg-white p-8 h-full rounded-md'  onClick={() => setNotifaction(false)}>
                  <div className='flex justify-between items-center'>
                  <h2 className='text-2xl font-bold'>Notification</h2>
                     <svg width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">

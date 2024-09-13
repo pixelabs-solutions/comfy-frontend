@@ -7,7 +7,7 @@ const CardStatus = ({ StatusData }) => {
         <>
             <div className="mt-10 grid 2xl:grid-cols-3 md:grid-cols-2  gap-10">
                 {StatusData.map((data) => (
-                    <div style={data.status === 'approved' ? { backgroundImage: "url('/Subtract.png')" } : { backgroundColor: '#F5F7F9' }} className="bg-cover bg-no-repeat rounded-xl bg-center px-12 pt-12 pb-5 text-center relative">
+                    <div style={data.status === 'approved' ? { backgroundImage: "url('/Subtract.png')" } : { backgroundColor: '#F5F7F9' }} className="rounded-xl  px-12 pt-12 pb-5 text-center relative bg-cover bg-center">
                         <div>
                             <h2 className="text-xl font-bold">{data.name}</h2>
                             <p className="text-[#37384D]">{data.code}</p>

@@ -25,14 +25,14 @@ const qualitycontrol = () => {
 
     return (
         <>
-            <h1 className="text-[30px] font-bold ">Call History</h1>
+            <h1 className="text-[30px] font-bold ">Quality Control</h1>
             <p className="my-2 text-sm text-[#666777]">Monday, 29, April, 2024</p>
             <div className="mb-8 flex w-full justify-end gap-5">
-                <select name="" id="" className="bg-[#F5F7F9] px-2 ">
+                <select name="" id="" className="bg-[#F5F7F9] px-2 py-1 rounded-md ">
                     <option value="" className="bg-[#F5F7F9]">
                         Weekly
                     </option>
-                    <option value="" className="bg-[#F5F7F9]">
+                    <option value="" className="bg-[#F5F7F9] py-6">
                         Daily
                     </option>
                     <option value="" className="bg-[#F5F7F9]">
