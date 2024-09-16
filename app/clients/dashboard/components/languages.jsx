@@ -3,20 +3,33 @@ import React, { useEffect, useState } from 'react';
 import { TbArrowsDiff } from 'react-icons/tb';
 import LanguageDropdown from '@/components/language-dropdown';
 import { useSelector } from 'react-redux';
+import { useInitiateCallMutation } from '@/store/query/postapis';
 
 const Languages = () => {
     const [languages, setSelectedLanguage] = useState('English');
     const [languages2, setSelectedLanguage2] = useState('English');
     const [Popoup, setPopoup] = useState(true);
     const [Popoup2, setPopoup2] = useState(true);
-
-    // Correctly access the state from the store
+    const [InitiateCall] =useInitiateCallMutation()
     const Toprated = useSelector((state) => state.LangToprated);
-
+     const valuesDummy ={
+        client:19,
+        interpreter:18,
+        duration:"3:01:09",
+        bill:1233
+     }
     useEffect(() => {
       console.log(Toprated + "aa");
-    }, [Toprated]); // Add Toprated to the dependency array
+    }, [Toprated]); 
 
+    const InitiateCallClick = async () => {
+        try {
+            await InitiateCall(valuesDummy).unwrap(); 
+            console.log('Success');
+        } catch (err) {
+            console.error('Error:', err);
+        }
+    };
     return (
         <>
             <div>
@@ -31,7 +44,7 @@ const Languages = () => {
                         <li className="w-full border-l-2 py-4 text-center" onClick={() => setPopoup2(false)}>{languages2}</li>
                     </div>
                     <div className="w-[30%]">
-                        <li className="w-full rounded-r-lg bg-[#FBCC1D] py-4 text-center font-bold text-black">Initiate Call</li>
+                        <li className="w-full rounded-r-lg bg-[#FBCC1D] py-4 text-center font-bold text-black" onClick={InitiateCallClick} >Initiate Call</li>
                     </div>
                 </ul>
             </div>

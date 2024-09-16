@@ -4,9 +4,13 @@ import { MdClose } from 'react-icons/md';
 import FormComponent from './components/form';
 import Step2 from './components/Step2';
 import { useAddUserMutation } from '@/store/query/postapis';
+import { useRouter } from 'next/navigation';
+import SuccessMessage from '@/components/layouts/scucessmessage';
+import ErrorBox from '@/components/layouts/errormessage';
 
 const AddUserForm = ({ onClose = () => {} }) => { // Default to no-op function
   const [step, setStep] = useState(0);
+  const [MessagesShows ,setMessagesShows] =useState('')
   const [AddUser] = useAddUserMutation();
   const [formValues, setFormValues] = useState({
     role: '',
@@ -32,13 +36,17 @@ const AddUserForm = ({ onClose = () => {} }) => { // Default to no-op function
   const handleStepChange = (newStep) => {
     setStep(newStep);
   };
-
+ const router = useRouter()
   const handleSubmit = async (values, { setSubmitting }) => {
     if (step === 1) {
       try {
         await AddUser(values).unwrap(); // Send the data
         console.log('User added successfully');
+        setMessagesShows('Success');
+        router.push("/auth")
+        
       } catch (err) {
+        setMessagesShows('Error');
         console.error('Failed to add user: ', err);
       }
       setSubmitting(false);
@@ -63,6 +71,9 @@ const AddUserForm = ({ onClose = () => {} }) => { // Default to no-op function
   }, [onClose]);
 
   return (
+    <>
+     {MessagesShows === 'Success' && <SuccessMessage Message={'You Are Logged In Successfully'} onClose={() => setMessagesShows(null)} />}
+     {MessagesShows === 'Error' && <ErrorBox errorMessage={'Failed to log in. Please try again.'} onClose={() => setMessagesShows(null)} />}
     <div className="inset-0 fixed flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div
         ref={formRef}
@@ -105,6 +116,7 @@ const AddUserForm = ({ onClose = () => {} }) => { // Default to no-op function
         </Formik>
       </div>
     </div>
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const PostApis = createApi({
-    reducerPath: 'api',
+    reducerPath: 'PostApi',
     baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/' }),
     endpoints: (builder) => ({
         // AddUser
@@ -19,7 +19,14 @@ export const PostApis = createApi({
                 body: LoginUser,
             }),
         }),
+        InitiateCall: builder.mutation({
+            query: (InitiateCall) => ({
+                url: 'calls/initiate',
+                method: 'POST',
+                body: InitiateCall,
+            }),
+        }),
     }),
 });
 
-export const { useAddUserMutation  ,useLoginUserMutation} = PostApis;
+export const { useAddUserMutation  ,useLoginUserMutation ,useInitiateCallMutation} = PostApis;

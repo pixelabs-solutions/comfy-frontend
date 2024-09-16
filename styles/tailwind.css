@@ -706,4 +706,15 @@ img.dark-img {
   .animate-slide-down {
     animation: slide-down 0.5s ease-out;
   }
+
+  
+  .Table_Uses_All thead tr:first-child th:first-child {
+    border-radius: 0.5rem 0 0 0;
+    border-left: 1px solid #E5E7EB;
+  }
+  
+  .Table_Uses_All thead tr:first-child th:last-child {
+    border-radius: 0 0.5rem 0 0;
+    border-right: 1px solid #E5E7EB;
+  }
   

@@ -13,7 +13,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
 import { toggleSidebar } from '@/store/themeConfigSlice';
-import { IRootState } from '@/store';
+import { IRootState } from '@/store/store';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { getTranslation } from '@/i18n';

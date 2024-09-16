@@ -1,3 +1,4 @@
+import React from 'react';
 import ProviderComponent from '@/components/layouts/provider-component';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import '../styles/tailwind.css';
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
         default: 'Comify',
     },
 };
+
 const nunito = Nunito({
     weight: ['400', '500', '600', '700', '800'],
     subsets: ['latin'],

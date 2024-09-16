@@ -52,8 +52,8 @@ const SignInForm: React.FC = () => {
             if(role === "billing-manager"){
               router.push('/billingmanager');
             }
-            if(role === "interprieter"){
-              router.push('/interpreiter/dashboard');
+            if(role === "interpreter"){
+              router.push('/interPretiers/dashboard');
             }
             if(role === "quality-control"){
               router.push('/qualitycontrol');

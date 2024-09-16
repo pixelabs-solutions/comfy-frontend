@@ -1,5 +1,5 @@
 'use client';
-import { IRootState } from '@/store';
+import { IRootState } from '@/store/store';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';

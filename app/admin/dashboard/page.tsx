@@ -1,10 +1,24 @@
-import React from 'react'
-import StatisticsSection from '../components/StatisticsSection'
+
+"use client"
+import React from 'react';
+import StatisticsSection from '../components/StatisticsSection';
+import { useAdminKpiQuery, useGetAllUserQuery } from '@/store/query/getapis';
 import GraphChart from '../components/graph'
-const dashboard = () => {
-  return (
-    <>
-        <h1 className='text-[25px] font-bold '>Dashboard</h1>
+
+const Dashboard: React.FC = () => {
+    const { data: apiData, error, isLoading } = useAdminKpiQuery();
+
+    if (isLoading) {
+        return <div>Loading...</div>; // Replace with your loading component
+    }
+
+    if (error) {
+        return <div>Error: {'aa'}</div>; // Replace with your error component
+    }
+
+    return (
+        <>
+              <h1 className='text-[25px] font-bold '>Dashboard</h1>
         <p className='text-[#666777] text-sm my-2'>Monday, 29, April, 2024</p>
         <div className='w-full flex justify-end gap-5'>
             <button className='bg-[#E1F2E5] rounded-full flex gap-2 py-1 px-2 items-center text-[#656676]'>
@@ -23,9 +37,8 @@ const dashboard = () => {
           <h2 className='text-[20px] font-bold'>Weekly Interactions</h2>
           <GraphChart />
         </div>
-
-    </>
-  )
+        </>
+    );
 }
 
-export default dashboard
+export default Dashboard;

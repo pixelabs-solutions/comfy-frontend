@@ -8,7 +8,7 @@ import Setting from '@/components/layouts/setting';
 import Sidebar from '@/components/layouts/sidebar';
 import Portals from '@/components/portals';
 
-export default function DefaultLayout({ children }) {
+export default function DefaultLayout ({ children }: { children: any }) {
     return (
         <>
             {/* BEGIN MAIN CONTAINER */}

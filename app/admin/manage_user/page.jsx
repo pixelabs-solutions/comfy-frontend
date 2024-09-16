@@ -3,9 +3,11 @@ import { BiPlusCircle } from 'react-icons/bi';
 import React, { useState } from 'react';
 import Table from '../components/ManageUserTable';
 import AddUserForm from '@/app/signup/page';
+import { useGetAllUserQuery } from '@/store/query/getapis';
 
-const App = () => {
+const Manageuser = () => {
     const [Form ,SetForm] =useState(false)
+    const { data:apidata, error, isLoading } = useGetAllUserQuery();
     const columns = [
         { label: 'Interpreters', key: 'product' },
         { label: 'Status', key: 'price' },
@@ -105,4 +107,4 @@ const App = () => {
     );
 };
 
-export default App;
+export default Manageuser;

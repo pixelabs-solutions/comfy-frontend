@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { getTranslation } from '@/i18n';
-import { IRootState } from '@/store';
+import { IRootState } from '@/store/store';
 import { toggleRTL } from '@/store/themeConfigSlice';
 import { GetCountries } from 'react-country-state-city';
 interface LanguageDropdownProps {
