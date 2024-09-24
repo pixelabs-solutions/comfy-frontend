@@ -1,8 +1,11 @@
 import React from 'react'
+import CoverLogin from './auth/page'
 
-const Page = () => {
+const Page = () => {  
   return (
-    <div>page</div>
+    <div>
+      <CoverLogin />
+    </div>
   )
 }
 

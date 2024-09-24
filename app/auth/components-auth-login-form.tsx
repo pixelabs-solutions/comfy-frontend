@@ -1,14 +1,15 @@
-"use client"
+"use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Field, Form, Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import SuccessMessage from "./../layouts/scucessmessage"
-import { useLoginUserMutation } from '@/store/query/postapis';
+import { useLoginUserMutation, useRefreshTokenMutation } from '@/store/query/postapis';
 import { useRouter } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
-import ErrorBox from '../layouts/errormessage';
-import IconEye from '../icon/icon-eye';
+import SuccessMessage from '@/components/layouts/scucessmessage';
+import ErrorBox from '@/components/layouts/errormessage';
+import IconEye from '@/components/icon/icon-eye';
+import { useBillingManagerDropdownQuery } from '@/store/query/getapis';
 
 // Validation schema using Yup
 const validationSchema = Yup.object({
@@ -25,32 +26,36 @@ const initialValues = {
 const SignInForm: React.FC = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [loginUser] = useLoginUserMutation();
+    const [refreshToken] = useRefreshTokenMutation();
     const router = useRouter();
-    const [MessagesShows, setMessagesShows] = useState<string | null>(null);
-
+    const [messagesShows, setMessagesShows] = useState<string | null>(null);
+    const [isPolling, setIsPolling] = useState(false);
+    
     const handleSubmit = async (values: typeof initialValues, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
         try {
             const response = await loginUser(values).unwrap();
-            console.log('User logged in:', response);
-            const token = response.access_token;
-            console.log('Token:', token);
-            localStorage.setItem('authToken', token);
-            const decoded: { role?: string } = jwtDecode(token);
-            console.log('Decoded Token:', decoded);
-            const role = decoded.role;
-            console.log(role);
+            const { access_token, refresh_token } = response; // Ensure you get the refresh token
+            localStorage.setItem('authToken', access_token);
+            localStorage.setItem('refreshToken', refresh_token); // Store refresh token
+            const decoded: { exp?: number, role?: string } = jwtDecode(access_token);
+            const role = decoded.role ?? '';
+            localStorage.setItem('authRoles', role);    
             setMessagesShows('Success');
+
+            // Start polling for token refresh after successful login
+            setIsPolling(true);
+
             if (role === 'admin') {
                 router.push('/admin/dashboard');
             } 
             if (role === 'sub-admin') {
-                router.push('/subadmin/dashboard');
+                router.push('/sub-admin/dashboard');
             } 
             if(role === "client"){
-              router.push('/clients/dashboard');
+              router.push('/client/dashboard');
             }
             if(role === "billing-manager"){
-              router.push('/billingmanager');
+              router.push('/billingmanager/dashboard');
             }
             if(role === "interpreter"){
               router.push('/interPretiers/dashboard');
@@ -58,18 +63,62 @@ const SignInForm: React.FC = () => {
             if(role === "quality-control"){
               router.push('/qualitycontrol');
             }
+            // Add other role redirects here...
         } catch (error) {
             setMessagesShows('Error');
             console.error('Error logging in:', error);
         } finally {
-            setSubmitting(false); // Ensure the submitting state is reset
+            setSubmitting(false);
         }
     };
 
+    const refreshUserToken = async () => {
+        const storedRefreshToken = localStorage.getItem('refreshToken');
+        if (!storedRefreshToken) return; 
+    
+        try {
+            const response = await refreshToken({ token: storedRefreshToken }).unwrap();
+            const newToken = response.access_token;
+            localStorage.setItem('authToken', newToken);
+            console.log('Token refreshed:', newToken);
+        } catch (error) {
+            console.error('Error refreshing token:', error);
+            setIsPolling(false); // Stop polling on error
+            // Optional: Handle logout or redirect to login
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('refreshToken');
+            // Redirect to login page if needed
+        }
+    };
+
+    useEffect(() => {
+        let intervalId: NodeJS.Timeout;
+    
+        if (isPolling) {
+            intervalId = setInterval(() => {
+                const token = localStorage.getItem('authToken');
+                if (token) {
+                    const { exp } = jwtDecode(token);
+                    const now = Math.floor(Date.now() / 1000);
+    
+                    // Check if token is about to expire (e.g., within 10 seconds)
+                    if (exp - now < 10) {
+                        refreshUserToken();
+                    }
+                }
+            }, 5000); // Check every 5 seconds
+        }
+    
+        return () => {
+            clearInterval(intervalId);
+            setIsPolling(false);
+        };
+    }, [isPolling]);
+
     return (
         <>
-            {MessagesShows === 'Success' && <SuccessMessage Message={'You Are Logged In Successfully'} onClose={() => setMessagesShows(null)} />}
-            {MessagesShows === 'Error' && <ErrorBox errorMessage={'Failed to log in. Please try again.'} onClose={() => setMessagesShows(null)} />}
+            {messagesShows === 'Success' && <SuccessMessage Message={'You Are Logged In Successfully'} onClose={() => setMessagesShows(null)} />}
+            {messagesShows === 'Error' && <ErrorBox errorMessage={'Failed to log in. Please try again.'} onClose={() => setMessagesShows(null)} />}
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
                 {({ isSubmitting }) => (
                     <Form className="mt-10 flex w-full flex-col items-start max-md:mt-10 max-md:max-w-full lg:mt-20 xl:mt-44">

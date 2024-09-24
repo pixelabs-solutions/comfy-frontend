@@ -1,5 +1,4 @@
-import SignInForm from '@/components/auth/components-auth-login-form';
-import ComponentsAuthLoginForm from '@/components/auth/components-auth-login-form';
+import SignInForm from './components-auth-login-form';
 import LogoSite from '@/components/Logo';
 import { Metadata } from 'next';
 import Link from 'next/link';

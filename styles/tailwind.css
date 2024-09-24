@@ -717,4 +717,17 @@ img.dark-img {
     border-radius: 0 0.5rem 0 0;
     border-right: 1px solid #E5E7EB;
   }
+  @keyframes popup {
+    0% {
+      transform: scale(0.5);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
   
+  .animate-popup {
+    animation: popup 0.3s ease-out forwards;
+  }

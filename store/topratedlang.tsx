@@ -5,7 +5,6 @@ export const TopratedLang = createSlice({
   initialState: [], // Initial state as an empty array
   reducers: {
     SavingValuePair: (state, action) => {
-      // State is an array, so replace the array with the new one
       return action.payload;
     },
   },

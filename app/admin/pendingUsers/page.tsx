@@ -31,20 +31,20 @@ const PendingUsers = () => {
     };
 
     // Define columns including a single 'status' column
-    const columns = [
-        { label: selectedRole, key: 'product' },
-        { label: 'User Manager', key: 'discount' },
-        { label: '', key: 'status' }, // Combined status column
-    ];
+   
+const columns = [
+    { label: selectedRole, key: 'product' },
+    { label: 'User Manager', key: 'discount' },
+    { label: '', key: 'statuspendinguser' }, // Combined status column
+];
 
-    // Update data structure to include a single 'status' key
-    const data = apiData?.users.map((user: any) => ({
-        product: `${user.firstName} ${user.lastName}`, // Use the role as the value for the 'product' column
-        image: user.profilePicture || '/Admin/Ellipse 3.png', // Use default image if no profile picture
-        category: user.gender, // Example usage, adjust as needed
-        discount: `${user.firstName} ${user.lastName}`, // Example usage, adjust as needed
-        status: ["Approved", "Reject"] // Example status, adjust as needed
-    })) || [];
+const data = apiData?.users.map((user: any) => ({
+    product: `${user.firstName} ${user.lastName}`,
+    image: user.profilePicture || '/Admin/Ellipse 3.png',
+    category: user.gender,
+    discount: `${user.firstName} ${user.lastName}`,
+    statuspendinguser: ["Approved", "Reject"], // Example status
+})) || [];
 
     return (
         <>

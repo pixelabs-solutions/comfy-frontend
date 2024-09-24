@@ -17,7 +17,7 @@ const AddUserForm = ({ onClose = () => {} }) => { // Default to no-op function
     firstName: '',
     lastName: '',
     email: '',
-    approved: 'no',
+    approved: 'true',
     status: "active",
     username: '',
     gender: '',

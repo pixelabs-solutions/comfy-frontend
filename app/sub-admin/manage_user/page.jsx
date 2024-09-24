@@ -1,11 +1,11 @@
-"use client"
+'use client';
 import { BiPlusCircle } from 'react-icons/bi';
 import React, { useState } from 'react';
-import AddUserForm from '@/app/signup/page';
+import Table from '../../admin/components/ManageUserTable';
 import { useManageUserQuery } from '@/store/query/getapis';
-import Table from '../components/ManageUserTable';
+import AddUserForm from '@/app/signup/page'; // Import AddUserForm if needed
 
-const Manageuser = () => {
+const ManageUser = () => {
     const [Form, SetForm] = useState(false);
     const [roleManageUser, setRoleManageUser] = useState(localStorage.getItem("SELECTEDROLE") || "interpreter");
     const { data: apidata, error, isLoading } = useManageUserQuery({ roleManageUser });
@@ -17,15 +17,15 @@ const Manageuser = () => {
         { label: '', key: 'edit' },
         { label: '', key: '' },
     ];
+
     const tableData = apidata?.users?.map(user => ({
         product: user.username || 'N/A',
-        category: user.email || 'N/A',
         price: user.status || 'N/A',
         discount: user.addedBy || 'N/A',
         image: user.image || '/path/to/default/image.png', // Set default image if none provided
-        edit: '/Admin/stylus_note.png',
+        edit: "/Admin/stylus_note.png"// Replace with actual edit icon path
     })) || [];
-   
+
     return (
         <>
             <h1 className="text-[30px] font-bold ">Manage Users</h1>
@@ -40,8 +40,10 @@ const Manageuser = () => {
                     Add Users <BiPlusCircle />
                 </button>
                 <select 
+                    value={roleManageUser} 
                     onChange={(e) => setRoleManageUser(e.target.value)} 
-                    className="bg-[#F5F7F9] px-2">
+                    className="bg-[#F5F7F9] px-2"
+                >
                     <option value="interpreter">Interpreter</option>
                     <option value="admin">Admin</option>
                     <option value="manager">Manager</option>
@@ -59,4 +61,4 @@ const Manageuser = () => {
     );
 };
 
-export default Manageuser;
+export default ManageUser;
