@@ -10,6 +10,7 @@ import SuccessMessage from '@/components/layouts/scucessmessage';
 import ErrorBox from '@/components/layouts/errormessage';
 import IconEye from '@/components/icon/icon-eye';
 import { useBillingManagerDropdownQuery } from '@/store/query/getapis';
+import { getToken, isTokenExpired ,checkUserRoleAndRedirect } from './servicetokken';
 
 // Validation schema using Yup
 const validationSchema = Yup.object({
@@ -58,7 +59,7 @@ const SignInForm: React.FC = () => {
               router.push('/billingmanager/dashboard');
             }
             if(role === "interpreter"){
-              router.push('/interPretiers/dashboard');
+              router.push('/interpreter/dashboard');
             }
             if(role === "quality-control"){
               router.push('/qualitycontrol');
@@ -71,49 +72,14 @@ const SignInForm: React.FC = () => {
             setSubmitting(false);
         }
     };
-
-    const refreshUserToken = async () => {
-        const storedRefreshToken = localStorage.getItem('refreshToken');
-        if (!storedRefreshToken) return; 
-    
-        try {
-            const response = await refreshToken({ token: storedRefreshToken }).unwrap();
-            const newToken = response.access_token;
-            localStorage.setItem('authToken', newToken);
-            console.log('Token refreshed:', newToken);
-        } catch (error) {
-            console.error('Error refreshing token:', error);
-            setIsPolling(false); // Stop polling on error
-            // Optional: Handle logout or redirect to login
-            localStorage.removeItem('authToken');
-            localStorage.removeItem('refreshToken');
-            // Redirect to login page if needed
-        }
-    };
-
     useEffect(() => {
-        let intervalId: NodeJS.Timeout;
-    
-        if (isPolling) {
-            intervalId = setInterval(() => {
-                const token = localStorage.getItem('authToken');
-                if (token) {
-                    const { exp } = jwtDecode(token);
-                    const now = Math.floor(Date.now() / 1000);
-    
-                    // Check if token is about to expire (e.g., within 10 seconds)
-                    if (exp - now < 10) {
-                        refreshUserToken();
-                    }
-                }
-            }, 5000); // Check every 5 seconds
+        const token = getToken();
+        // Check if there's an existing token and if it's not expired
+        if (token && !isTokenExpired(token)) {
+          // Redirect the user based on their role
+          checkUserRoleAndRedirect();
         }
-    
-        return () => {
-            clearInterval(intervalId);
-            setIsPolling(false);
-        };
-    }, [isPolling]);
+      }, [router]);
 
     return (
         <>

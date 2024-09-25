@@ -70,12 +70,12 @@ import { method } from 'lodash';
           method: 'GET',
         }),
       }),
-      ClientsCallHistory: builder.query({
-        query: () => ({
-          url: `users/Clients/CallHistory`,
-          method: 'GET',
-        }),
-      }),
+      // ClientsCallHistory: builder.query({
+      //   query: () => ({
+      //     url: `users/Clients/CallHistory`,
+      //     method: 'GET',
+      //   }),
+      // }),
       BillingManagerDropdown: builder.query({
         query: ({Role}) => ({
           url: `users/getUsers?role=${Role}`,
@@ -105,7 +105,18 @@ import { method } from 'lodash';
         },
       }),
       
-      
+      InterpreterBillHistory: builder.query({
+        query: () => ({
+          url: `billing/Interpreter/billHistory`,
+          method: 'GET',
+        }),
+      }),
+      interCallHistory: builder.query({
+        query: () => ({
+          url: `calls/inter/callHistory`,
+          method: 'GET',
+        }),
+      }),
     }),
   });
 
@@ -114,11 +125,13 @@ import { method } from 'lodash';
     useClientsBillHistoryQuery,
     useSubadminKpiQuery, 
     useBillingManagerQuery,
+    useInterCallHistoryQuery,
     useBillingManagerDropdownQuery,
     useClientsCallHistoryQuery,
     usePaymentHistoryQuery,
     useBillingHistoryQuery,
     useAdminKpiQuery, 
+    useInterpreterBillHistoryQuery,
     useCallHistoryQuery, 
     usePendingUsersQuery 
   } = GetApis;

@@ -80,7 +80,7 @@ const Table = ({ columns, data }: any) => {
         }
         if (column.key === 'edit') {
             return (
-                <div className="flex justify-end">
+                <div className="flex">
                     <CSVLink data={data} className="flex items-center gap-2  px-2 py-1">
                         <img src={row[column.key]} alt="edit" width={20} />
                     </CSVLink>

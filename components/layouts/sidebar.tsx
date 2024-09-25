@@ -15,9 +15,10 @@ import Link from 'next/link';
 import { toggleSidebar } from '@/store/themeConfigSlice';
 import { IRootState } from '@/store/store';
 import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { getTranslation } from '@/i18n';
 import Nottification from '@/app/nottification/page';
+import { Router } from 'next/router';
 const Sidebar = () => {
     const dispatch = useDispatch();
     const { t } = getTranslation();
@@ -32,7 +33,11 @@ const Sidebar = () => {
             return oldValue === value ? '' : value;
         });
     };
-
+    const router = useRouter();
+    const LogOutFun = () =>{
+        localStorage.removeItem('authToken');
+        router.push('/auth')
+    }
     useEffect(() => {
         const selector = document.querySelector('.sidebar ul a[href="' + window.location.pathname + '"]');
         if (selector) {
@@ -232,12 +237,10 @@ const Sidebar = () => {
                                     </ul>
                                 </li>
                             </ul>
-                            <Link href="/apps/mailbox" className="group">
-                                <div className="flex items-center">
+                                <div className="flex items-center cursor-pointer  group" onClick={LogOutFun}>
                                     <BiLogIn className="shrink-0 group-hover:!text-primary" />
                                     <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">Log Out</span>
                                 </div>
-                            </Link>
                         </div>
                     </PerfectScrollbar>
                 </div>

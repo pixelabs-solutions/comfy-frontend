@@ -23,7 +23,7 @@ const SuccessMessage = ({ onClose, Message }) => {
   }, [onClose]);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
+    <div className="fixed inset-0 flex items-center justify-center z-[1000]">
       {/* Background overlay with click handler */}
       <div
         onClick={onClose}

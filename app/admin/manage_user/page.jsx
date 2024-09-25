@@ -42,16 +42,19 @@ const Manageuser = () => {
                 <select 
                     onChange={(e) => setRoleManageUser(e.target.value)} 
                     className="bg-[#F5F7F9] px-2">
-                    <option value="interpreter">Interpreter</option>
-                    <option value="admin">Admin</option>
-                    <option value="manager">Manager</option>
+                    <option value="interpreter">Interpreters</option>
+                    <option value="admin">Admins</option>
+                    <option value="billing-manager">Billing Managers</option>
+                    <option value="client">Client</option>
+                    <option value="quality-control">Quality Controal</option>
+                    <option value="sub-admin">Sub Admin</option>
                 </select>
             </div>
             {isLoading && <p>Loading...</p>}
             {error && <p>Error loading data...</p>}
             {Form && (
                 <div className='fixed left-0 right-0 top-0 bottom-0 bg-[#B9B9B970] z-[100]'>
-                    <AddUserForm />
+                    <AddUserForm SetForm={SetForm}  />
                 </div>
             )}
             {!isLoading && !error && <Table columns={columns} data={tableData} />}

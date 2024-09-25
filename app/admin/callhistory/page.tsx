@@ -105,8 +105,8 @@ const CallHistory: React.FC = () => {
                 >
                     <option value="">All</option>
                     <option value="weekly">Weekly</option>
-                    <option value="daily">Daily</option>
                     <option value="monthly">Monthly</option>
+                    <option value="yearly">Yearly</option>
                 </select>
             </div>
             <Table columns={columns} data={filteredData} />
