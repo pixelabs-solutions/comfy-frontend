@@ -2,18 +2,20 @@
 import { BiSearchAlt2 } from 'react-icons/bi';
 import React, { useState, useMemo } from 'react';
 import Table from '../../admin/components/ManageUserTable';
-import { useCallHistoryQuery } from '../../../store/query/getapis';
+import { useSubadminCallHistoryQuery } from '../../../store/query/getapis'; // Updated query hook
 import { format } from 'date-fns'; // Import date-fns for formatting
 
 const CallHistory = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [timeRange, setTimeRange] = useState('weekly');
+    const [timeRange, setTimeRange] = useState('weekly'); // Default time range selection
 
     const currentDate = new Date();
-    currentDate.setDate(currentDate.getDate() + 1);
-    const formattedCurrentDate = format(currentDate, 'yyyy-MM-dd');
+    currentDate.setDate(currentDate.getDate() + 1); // Adjusting the current date
+    const formattedCurrentDate = format(currentDate, 'yyyy-MM-dd'); // Formatting the current date
 
-    const { data: apidata, isLoading, isError } = useCallHistoryQuery({ timeRange, date: formattedCurrentDate });
+    // Using updated query with new parameters
+    const { data: apidata, isLoading, isError } = useSubadminCallHistoryQuery({ timeRange, date: formattedCurrentDate });
+    
     const columns = [
         { label: 'Client', key: 'Client' },
         { label: 'Interpreters', key: 'IntClient' },
@@ -35,8 +37,8 @@ const CallHistory = () => {
                 ? item.interpreter.profilePicture[0]
                 : '/Admin/defaultInterpreterImage.png', // Default image if not available
             Duration: item.duration,
-            Date: format(new Date(item.createdAt), 'MMM dd, yyyy hh:mm a'),
-            Bill: item.bill ? `$${item.bill}` : 'N/A',
+            Date: format(new Date(item.createdAt), 'MMM dd, yyyy hh:mm a'), // Formatting the date for display
+            Bill: item.bill ? `$${item.bill}` : 'N/A', // Displaying bill with a default value if not available
         }));
     }, [apidata]);
 
@@ -47,14 +49,14 @@ const CallHistory = () => {
     }, [data, searchTerm]);
 
     const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value);
+        setSearchTerm(e.target.value); // Setting the search term
     };
 
     return (
         <>
             <h1 className="text-[30px] font-bold">Call History</h1>
             <p className="my-2 text-sm text-[#666777]">{formattedCurrentDate}</p>
-            <div className="mb-8 flex flex-wrap w-full lg:justify-end gap-5 ">
+            <div className="mb-8 flex flex-wrap w-full lg:justify-end gap-5">
                 <div className="flex items-center gap-2 rounded-md bg-[#F5F7F9] py-[6px] px-5">
                     <input
                         type="text"
@@ -71,7 +73,7 @@ const CallHistory = () => {
                     id="timeRange"
                     className="bg-[#F5F7F9] px-2"
                     value={timeRange}
-                    onChange={(e) => setTimeRange(e.target.value)}
+                    onChange={(e) => setTimeRange(e.target.value)} // Handling time range selection
                     aria-label="Select Time Range"
                 >
                     <option value="weekly">Weekly</option>
@@ -84,7 +86,7 @@ const CallHistory = () => {
             ) : isError ? (
                 <p>Error loading data.</p>
             ) : (
-                <Table columns={columns} data={filteredData} />
+                <Table columns={columns} data={filteredData} /> // Rendering filtered data in the table
             )}
         </>
     );

@@ -19,6 +19,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import { getTranslation } from '@/i18n';
 import Nottification from '@/app/nottification/page';
 import { Router } from 'next/router';
+import { useUpdateInterpreterMutation } from '@/store/query/patchapis';
+import ProfileComponent from './imageupload';
 const Sidebar = () => {
     const dispatch = useDispatch();
     const { t } = getTranslation();
@@ -28,6 +30,7 @@ const Sidebar = () => {
     const themeConfig = useSelector((state: IRootState) => state.themeConfig);
     const semidark = useSelector((state: IRootState) => state.themeConfig.semidark);
     const [Notification, setNotifaction] = useState(true);
+    const [UpdateInterpreter] =useUpdateInterpreterMutation()
     const toggleMenu = (value: string) => {
         setCurrentMenu((oldValue) => {
             return oldValue === value ? '' : value;
@@ -56,10 +59,11 @@ const Sidebar = () => {
     }, []);
 
     useEffect(() => {
-        setActiveRoute();
-        if (window.innerWidth < 1024 && themeConfig.sidebar) {
-            dispatch(toggleSidebar());
-        }
+        let allLinks = document.querySelectorAll('.sidebar ul a.active');
+        allLinks.forEach(link => link.classList.remove('active'));
+        
+        const selector = document.querySelector('.sidebar ul a[href="' + window.location.pathname + '"]');
+        selector?.classList.add('active');
     }, [pathname]);
 
     const setActiveRoute = () => {
@@ -72,17 +76,6 @@ const Sidebar = () => {
         selector?.classList.add('active');
     };
     const [image, setImage] = useState<string>('/profile.png'); // Default profile image
-
-    const handleImageChange = (e: any) => {
-        const file = e.target.files?.[0]; // Add optional chaining for safety
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImage(reader.result as string); // Type assertion since reader.result can be string or ArrayBuffer
-            };
-            reader.readAsDataURL(file); // Convert the image to a data URL for preview
-        }
-    };
     var Roles = localStorage.getItem('authRoles');
 
     return (
@@ -90,62 +83,14 @@ const Sidebar = () => {
             <nav className={`sidebar fixed bottom-0 top-0 z-50 h-full min-h-screen w-[240px] pl-4 transition-all duration-300 ${semidark ? 'text-white-dark' : ''}`}>
                 <div className="h-full bg-[#F5F7F9] py-[2.5rem] dark:bg-black">
                     <div className="flex items-center justify-between px-4 py-3">
-                        {/*   <Link href="/" className="main-logo flex shrink-0 items-center">
-                            <img className="ml-[5px] w-8 flex-none" src="/assets/images/logo.svg" alt="logo" />
-                            <span className="align-middle text-2xl font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">VRISTO</span>
-                        </Link>
-
-                        <button
-                            type="button"
-                            className="collapse-icon flex h-8 w-8 items-center rounded-full transition duration-300 hover:bg-gray-500/10 rtl:rotate-180 dark:text-white-light dark:hover:bg-dark-light/10"
-                            onClick={() => dispatch(toggleSidebar())}
-                        >
-                            <IconCaretsDown className="m-auto rotate-90" />
-                        </button>*/}
-
-                        {/* add profile image from the public folder and and user name and email as a profile detail in one div with flex row  */}
-
-                        {/* <div className="flex items-center justify-center gap-2">
-                            <img className="h-[50px] w-[50px] rounded-md object-cover" src="/profile.png" alt="user" />
-                            <div className="flex flex-col  gap-1">
-                                <span className="text-md font-bold  text-black dark:text-white-dark">Steve Handrison</span>
-                                <span className="text-xs font-medium text-gray-600 dark:text-gray-400">admin@vristo.com</span>
-                            </div>
-                        </div> */}
-                        <div className="group relative flex items-center justify-center gap-2">
-                            <div className="relative">
-                                <img
-                                    className="h-[50px] w-[50px] rounded-md object-cover"
-                                    src={image} // Use the dynamic image state
-                                    alt="user"
-                                />
-                                <div className="absolute inset-0 flex items-center justify-center rounded-md bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                                    <label htmlFor="file-upload" className="cursor-pointer">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232a2.828 2.828 0 114 4L7.5 21H3v-4.5L15.232 5.232z" />
-                                        </svg>
-                                        <input
-                                            id="file-upload"
-                                            type="file"
-                                            accept="image/*"
-                                            className="hidden"
-                                            onChange={handleImageChange} // Call the function on file change
-                                        />
-                                    </label>
-                                </div>
-                            </div>
-                            <div className="flex flex-col gap-1">
-                                <span className="text-md font-bold text-black dark:text-white-dark">Steve Handrison</span>
-                                <span className="text-xs font-medium text-gray-600 dark:text-gray-400">admin@vristo.com</span>
-                            </div>
-                        </div>
+                        <ProfileComponent />
                     </div>
                     <PerfectScrollbar className="relative mt-12 h-[calc(100vh-80px)] ">
                         <div className="flex h-[calc(100vh-200px)] flex-col justify-between">
                             <ul className="relative space-y-0.5  py-0 font-semibold">
                                 <li className="nav-item">
                                     <ul>
-                                        {(Roles === 'client' || Roles === 'interpreter' ||Roles === 'billing-manager' || Roles === 'sub-admin' || Roles === 'admin') && (
+                                        {(Roles === 'client' || Roles === 'interpreter'  ||  Roles === 'quality-control' ||Roles === 'billing-manager' || Roles === 'sub-admin' || Roles === 'admin') && (
                                             <li className="nav-item mb-0 sm:mb-12">
                                                 <Link href={`/${Roles}/dashboard`} className="group">
                                                     <div className="flex items-center">
@@ -211,7 +156,7 @@ const Sidebar = () => {
                                             </li>
                                         )}
 
-                                        {(Roles === 'client' || Roles === 'sub-admin' || Roles === 'admin' || Roles === 'billing-manager') && (
+                                        {(Roles === 'client' || Roles === 'sub-admin' || Roles === 'admin' || Roles === 'billing-manager' ||  Roles === 'interpreter') && (
                                             <li className="nav-item">
                                                 <Link href="#" className="group" onClick={() => setNotifaction(false)}>
                                                     <div className="flex items-center">
@@ -233,7 +178,7 @@ const Sidebar = () => {
                                             </li>
                                         )}
 
-                                        {!Notification && <Nottification Notificationprop={Notification} setNotifaction={setNotifaction} />}
+                                        {!Notification && <Nottification  onClose={() => setNotifaction(true)} />}
                                     </ul>
                                 </li>
                             </ul>

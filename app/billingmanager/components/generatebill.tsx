@@ -65,6 +65,7 @@ const PopupForm = ({ isOpen, onClose, setUserType,  Roles }: any) => {
                 setIsSuccess(true);
                 setIsError(false);
                 resetForm();
+                window.location.reload(); 
               } catch (error) {
                 setIsSuccess(false);
                 setIsError(true);

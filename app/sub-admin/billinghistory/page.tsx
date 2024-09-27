@@ -10,7 +10,7 @@ const BillingHistory = () => {
 
     const columns = [
         { label: 'Interpreters', key: 'product' },
-        { label: 'Status', key: 'status' },
+        { label: 'Status', key: 'statusBilling' },
         { label: 'Amount', key: 'amount' },
         { label: 'Date', key: 'createdAt' },
         { label: '', key: 'edit' },
@@ -21,7 +21,7 @@ const BillingHistory = () => {
         apidata?.map((item) => ({
             product: `${item.interpreter.firstName} ${item.interpreter.lastName}`,
             image: item.interpreter.profilePicture[0], // Assuming the first image is the one to display
-            status: item.status,
+            statusBilling: item.status,
             amount: `$${item.amount}`,
             createdAt: new Date(item.createdAt).toLocaleDateString(),
             edit: '/Admin/download.png',

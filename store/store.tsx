@@ -4,12 +4,14 @@ import { GetApis } from './query/getapis';
 import { PostApis } from './query/postapis';
 import themeConfigSlice from './themeConfigSlice';
 import TopratedLangReducer from './topratedlang';
+import profileReducer from './updateprofile'; // Ensure this path is correct
 
 // Configure store
 const store = configureStore({
     reducer: {
         themeConfig: themeConfigSlice,
         LangToprated: TopratedLangReducer,
+        profile: profileReducer,
         [GetApis.reducerPath]: GetApis.reducer,
         [PostApis.reducerPath]: PostApis.reducer,
     },

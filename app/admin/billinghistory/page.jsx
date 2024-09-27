@@ -1,18 +1,38 @@
-"use client";
+'use client';
 import { BsDownload } from 'react-icons/bs';
 import React, { useState } from 'react';
 import Table from '../components/ManageUserTable';
 import { useBillingHistoryQuery } from '@/store/query/getapis';
-import { CSVLink } from "react-csv";
+import { CSVLink } from 'react-csv';
 
 const BillingHistory = () => {
     const [filterDto, setFilterDto] = useState('weekly'); // Initial state is 'weekly'
-    
+
     const { data: billingdata, error, isLoading } = useBillingHistoryQuery({ filterDto });
 
     const columns = [
-        { label: 'Interpreters', key: 'product' },
-        { label: 'Status', key: 'price' },
+        {
+            label: (
+                <div className="flex items-center   gap-2">
+                    <p>Interpreters</p>
+                    <svg width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 18L0.5 13.5L1.95 12.05L5 15.1L8.05 12.05L9.5 13.5L5 18ZM1.95 6.05001L0.5 4.60001L5 0.100006L9.5 4.60001L8.05 6.05001L5 3.00001L1.95 6.05001Z" fill="#37384D" />
+                    </svg>
+                </div>
+            ),
+            key: 'product',
+        },
+        {
+            label: (
+                <div className="flex items-center   gap-2">
+                    <p>Status</p>
+                    <svg width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 18L0.5 13.5L1.95 12.05L5 15.1L8.05 12.05L9.5 13.5L5 18ZM1.95 6.05001L0.5 4.60001L5 0.100006L9.5 4.60001L8.05 6.05001L5 3.00001L1.95 6.05001Z" fill="#37384D" />
+                    </svg>
+                </div>
+            ),
+            key: 'statusBilling',
+        },
         { label: 'Amount', key: 'discount' },
         { label: 'Date', key: 'Date' },
         { label: '', key: 'edit' },
@@ -20,13 +40,15 @@ const BillingHistory = () => {
     ];
 
     // Transform billingdata to match table structure
-    const data = billingdata ? billingdata.map(item => ({
-        product: item.interpreter.firstName + ' ' + item.interpreter.lastName,
-        price: item.interpreter.status.charAt(0).toUpperCase() + item.interpreter.status.slice(1),
-        discount: `$${parseFloat(item.amount).toLocaleString()}`,
-        Date: new Date(item.createdAt).toLocaleDateString(),
-        edit: '/Admin/download.png',
-    })) : [];
+    const data = billingdata
+        ? billingdata.map((item) => ({
+              product: item.interpreter.firstName + ' ' + item.interpreter.lastName,
+              statusBilling: item.status,
+              discount: `$${parseFloat(item.amount).toLocaleString()}`,
+              Date: new Date(item.createdAt).toLocaleDateString(),
+              edit: '/Admin/download.png',
+          }))
+        : [];
 
     return (
         <>

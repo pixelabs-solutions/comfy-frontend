@@ -1,35 +1,36 @@
 import React from 'react';
 import StatCard from './StatCard';
 
-const PaymentCard = ({ Paymentdata ,period }) => {
+const PaymentCard = ({ Paymentdata, period }) => {
   // Check if Paymentdata is defined
   if (!Paymentdata) {
     return <div>Loading...</div>; // or any placeholder you prefer
   }
 
+  // Prepare payment data
   const paymentData = [
     {
       id: 0,
       title: "Payment after deduction",
-      value: `$${Paymentdata.paymentAfterDeduction.toLocaleString()}`,
-      percentage: "+3.2%", // You might want to calculate this based on real data
-      trend: Paymentdata.paymentAfterDeduction >= 0 ? "up" : "down",
+      value: `$${Paymentdata.paymentAfterDeduction.amount.toLocaleString()}`,
+      percentage: `${Paymentdata.paymentAfterDeduction.percentageChange.toFixed(2)}%`,
+      trend: Paymentdata.paymentAfterDeduction.percentageChange >= 0 ? "up" : "down",
       comparisonText: `vs ${period}`
     },
     {
       id: 1,
       title: "Interpreters",
-      value: `$${Paymentdata.interpreters.toLocaleString()}`,
-      percentage: "+3.2%", // Adjust this as needed
-      trend: Paymentdata.interpreters >= 0 ? "up" : "down",
+      value: `$${Paymentdata.interpreters.amount.toLocaleString()}`,
+      percentage: `${Paymentdata.interpreters.percentageChange.toFixed(2)}%`,
+      trend: Paymentdata.interpreters.percentageChange >= 0 ? "up" : "down",
       comparisonText: `vs ${period}`
     },
     {
       id: 2,
       title: "Clients",
-      value: `$${Paymentdata.clients.toLocaleString()}`,
-      percentage: "+30.2%", // Adjust based on your requirements
-      trend: Paymentdata.clients >= 0 ? "up" : "down",
+      value: `$${Paymentdata.clients.amount.toLocaleString()}`,
+      percentage: `${Paymentdata.clients.percentageChange.toFixed(2)}%`,
+      trend: Paymentdata.clients.percentageChange >= 0 ? "up" : "down",
       comparisonText: `vs ${period}`
     }
   ];
@@ -50,6 +51,6 @@ const PaymentCard = ({ Paymentdata ,period }) => {
       </div>
     </section>
   );
-}
+};
 
 export default PaymentCard;

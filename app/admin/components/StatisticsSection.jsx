@@ -12,7 +12,7 @@ const StatisticsSection = ({ apidata ,timeRange}) => {
       id: 0,
       title: "New calls",
       value: newCalls.count.toString(),
-      percentage: `${newCalls.percentageChange}%`,
+      percentage: `${newCalls.percentageChange.toFixed(2)}%`,
       trend: newCalls.percentageChange >= 0 ? "up" : "down",
       comparisonText: `${'vs' + " " +timeRange}`
     },
@@ -20,7 +20,7 @@ const StatisticsSection = ({ apidata ,timeRange}) => {
       id: 1,
       title: "New Interpreters",
       value: newInterpreters.count.toString(),
-      percentage: `${newInterpreters.percentageChange}%`,
+      percentage: `${newInterpreters.percentageChange.toFixed(2)}%`,
       trend: newInterpreters.percentageChange >= 0 ? "up" : "down",
       comparisonText: `${'vs' + " " +timeRange}`
     },
@@ -28,7 +28,7 @@ const StatisticsSection = ({ apidata ,timeRange}) => {
       id: 2,
       title: "New Clients",
       value: newClients.count.toString(),
-      percentage: `${newClients.percentageChange}%`,
+      percentage: `${newClients.percentageChange.toFixed(2)}%`,
       trend: newClients.percentageChange >= 0 ? "up" : "down",
       comparisonText: `${'vs' + " " +timeRange}`
     }

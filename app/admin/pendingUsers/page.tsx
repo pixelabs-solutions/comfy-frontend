@@ -26,8 +26,6 @@ const PendingUsers = () => {
             localStorage.setItem('selectedRole', role);
         }
 
-        // Optionally, force a page reload to apply the new filter
-        window.location.reload();
     };
 
     // Define columns including a single 'status' column
@@ -66,6 +64,9 @@ const data = apiData?.users.map((user: any) => ({
                     <option value="interpreter" className="bg-[#F5F7F9]">interpreter</option>
                     <option value="client" className="bg-[#F5F7F9]">client</option>
                     <option value="sub-admin" className="bg-[#F5F7F9]">sub-admin</option>
+                    <option value="admin" className="bg-[#F5F7F9]">admin</option>
+                    <option value="billing-manager" className="bg-[#F5F7F9]">billing manager</option>
+                    <option value="quality-control" className="bg-[#F5F7F9]">quality Control</option>
                 </select>
             </div>
             <Table columns={columns} data={data} />

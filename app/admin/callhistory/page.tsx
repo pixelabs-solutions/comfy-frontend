@@ -70,7 +70,6 @@ const CallHistory: React.FC = () => {
     const handleTimeRangeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
         setTimeRange(value !== '' ? value : 'monthly');
-        window.location.reload(); // Refresh to apply new filter
     };
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,7 +102,6 @@ const CallHistory: React.FC = () => {
                     value={timeRange}
                     onChange={handleTimeRangeChange}
                 >
-                    <option value="">All</option>
                     <option value="weekly">Weekly</option>
                     <option value="monthly">Monthly</option>
                     <option value="yearly">Yearly</option>

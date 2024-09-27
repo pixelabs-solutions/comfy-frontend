@@ -33,12 +33,25 @@ import IconMenuPages from '@/components/icon/menu/icon-menu-pages';
 import IconMenuMore from '@/components/icon/menu/icon-menu-more';
 import { usePathname, useRouter } from 'next/navigation';
 import { getTranslation } from '@/i18n';
+import ProfileComponent from './imageupload';
 
 const Header = () => {
     const pathname = usePathname();
     const dispatch = useDispatch();
     const router = useRouter();
     const { t, i18n } = getTranslation();
+    const [headerImage, setHeaderImage] = useState<string>('/profile-header.png'); // Header-specific image state
+
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setHeaderImage(reader.result as string); // Only update header image
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
     useEffect(() => {
         const selector = document.querySelector('ul.horizontal-menu a[href="' + window.location.pathname + '"]');
@@ -73,14 +86,15 @@ const Header = () => {
 
 
     return (
-        <header className={`z-40 ${themeConfig.semidark && themeConfig.menu === 'horizontal' ? 'dark' : ''} `}>
+        <header className={`z-40 mb-5 ${themeConfig.semidark && themeConfig.menu === 'horizontal' ? 'dark' : ''} `}>
             <div className="">
                 <div className="relative flex w-full items-center bg-white px-5  dark:bg-black ">
-                    <div className="horizontal-logo w-full flex items-center justify-between ltr:mr-2 rtl:ml-2 lg:hidden">
-                        <Link href="/" className="main-logo flex shrink-0 items-center">
+                    <div className="horizontal-logo w-full flex items-center justify-between ltr:mr-2 py-2  rtl:ml-2 lg:hidden">
+                        {/* <Link href="/" className="main-logo flex shrink-0 items-center">
                             <img className="inline w-8 ltr:-ml-1 rtl:-mr-1" src="/assets/images/logo.svg" alt="logo" />
                             <span className="hidden align-middle text-2xl  font-semibold  transition-all duration-300 ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light md:inline">VRISTO</span>
-                        </Link>
+                        </Link> */}
+                        <ProfileComponent />
                         <button
                             type="button"
                             className="collapse-icon flex flex-none rounded-full bg-white-light/40 p-2 hover:bg-white-light/90 hover:text-primary ltr:ml-2 rtl:mr-2 dark:bg-dark/40 dark:text-[#d0d2d6] dark:hover:bg-dark/60 dark:hover:text-primary lg:hidden"

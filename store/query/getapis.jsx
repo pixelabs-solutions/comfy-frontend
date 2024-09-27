@@ -58,6 +58,12 @@ import { method } from 'lodash';
           method: 'GET',
         }),
       }),
+      SubadminCallHistory: builder.query({
+        query: ({ timeRange, date }) => ({
+          url: `calls/subAdmin/CallHistory?timeRange=${timeRange}&date=${date}`,
+          method: 'GET',
+        }),
+      }),
       ClientsBillHistory: builder.query({
         query: () => ({
           url: `users/Clients/BillHistory`,
@@ -133,5 +139,6 @@ import { method } from 'lodash';
     useAdminKpiQuery, 
     useInterpreterBillHistoryQuery,
     useCallHistoryQuery, 
-    usePendingUsersQuery 
+    usePendingUsersQuery ,
+    useSubadminCallHistoryQuery
   } = GetApis;

@@ -1,7 +1,17 @@
+'use client'
 import { FiDownload } from 'react-icons/fi';
 import React from 'react';
+import { CSVLink } from 'react-csv';
 
 const CardStatus = ({ StatusData }) => {
+    const csvData = StatusData.map(data => ({
+        Name: data.name,
+        Code: data.code,
+        Status: data.status,
+        Duration: data.duration,
+        Amount: data.amounth,
+    }));
+
     return (
         <>
             <div className="mt-10 grid 2xl:grid-cols-3 md:grid-cols-2  gap-10">
@@ -27,14 +37,14 @@ const CardStatus = ({ StatusData }) => {
                                 <p className="text-[#78798A]">{data.amounth}</p>
                             </div>
                         </div>
-                        {data.status === 'approved' ? (
-                            <p className="flex justify-center gap-2 text-[#37384D]">
+                        {data.status === 'cleared' ? (
+                             <CSVLink data={csvData} className="flex justify-center hover:text-blue-500 cursor-pointer gap-2 text-[#37384D]">
                                 {' '}
                                 <FiDownload />
                                 Get PDF Receipt
-                            </p>
+                            </CSVLink>
                         ) : (
-                            <p className="flex justify-center gap-2 text-[#37384D] underline decoration-[#37384D]"> Mark as Paid</p>
+                            <p className="flex cursor-pointer justify-center gap-2 hover:text-red-500  text-[#37384D] hover:underline decoration-[#37384D] hover:decoration-red-500"> Mark as Paid</p>
                         )}
                     </div>
                 ))}
