@@ -11,7 +11,8 @@ const Manageuser = () => {
     const { data: apidata, error, isLoading } = useManageUserQuery({ roleManageUser });
 
     const columns = [
-        { label: 'Interpreters', key: 'product' },
+        { label: `${roleManageUser}`, key: 'product' },
+        { key: 'NotShowCheckbox' },
         {
             label: (
                 <div className="flex items-center   gap-2">

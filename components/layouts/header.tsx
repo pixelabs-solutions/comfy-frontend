@@ -86,7 +86,7 @@ const Header = () => {
 
 
     return (
-        <header className={`z-40 mb-5 ${themeConfig.semidark && themeConfig.menu === 'horizontal' ? 'dark' : ''} `}>
+        <header className={`z-40 lg:mb-0 mb-5 ${themeConfig.semidark && themeConfig.menu === 'horizontal' ? 'dark' : ''} `}>
             <div className="">
                 <div className="relative flex w-full items-center bg-white px-5  dark:bg-black ">
                     <div className="horizontal-logo w-full flex items-center justify-between ltr:mr-2 py-2  rtl:ml-2 lg:hidden">

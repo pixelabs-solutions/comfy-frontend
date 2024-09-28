@@ -14,6 +14,8 @@ const CallHistory = () => {
         { label: 'Call Duration', key: 'duration' },
         { label: 'Date and Time', key: 'date' },
         { label: 'Bill', key: 'bill' },
+    {    key: 'NotShowCheckbox'},
+
     ];
 
     // Format date function

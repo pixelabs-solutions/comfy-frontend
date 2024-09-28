@@ -5,6 +5,7 @@ import { BsDownload } from 'react-icons/bs';
 import { useCallHistoryQuery } from '@/store/query/getapis';
 import Table from '../components/ManageUserTable';
 import { CSVLink } from 'react-csv';
+
 // Function to get the current date in the desired format (YYYY-MM-DD)
 const getCurrentDate = () => {
     const today = new Date();
@@ -17,7 +18,8 @@ const getCurrentDate = () => {
 const CallHistory: React.FC = () => {
     const savedTimeRange = typeof window !== 'undefined' ? localStorage.getItem('timeRange') : 'monthly';
     const savedDate = typeof window !== 'undefined' ? localStorage.getItem('date') : getCurrentDate();
-
+    
+    const [selectedData, setSelectedData] = useState<any[]>([]);
     const [timeRange, setTimeRange] = useState<string>(savedTimeRange || 'monthly');
     const [date, setDate] = useState<string>(savedDate || getCurrentDate());
     const [searchQuery, setSearchQuery] = useState<string>(''); // State to manage the search query
@@ -49,9 +51,7 @@ const CallHistory: React.FC = () => {
 
     const data1 = data?.result.map((item: any) => ({
         Client: `${item.client.firstName} ${item.client.lastName}`,
-        image: item.client.profilePicture?.[0] || '/Admin/Ellipse 3.png',
         IntClient: `${item.interpreter.firstName} ${item.interpreter.lastName}`,
-        IntImage: item.interpreter.profilePicture?.[0] || '/path/to/default-image.png',
         Duration: item.duration,
         Date: new Date(item.createdAt).toLocaleString(),
         Bill: `$${item.bill}`,
@@ -76,9 +76,14 @@ const CallHistory: React.FC = () => {
         setSearchQuery(event.target.value); // Update the search query state
     };
 
+    const handleSelectedDataChange = (selectedData: any[]) => {
+        console.log('Selected data:', selectedData); // For debugging
+        setSelectedData(selectedData);
+    };
+
     return (
         <>
-            <h1 className="text-[30px] font-bold ">Call History</h1>
+            <h1 className="text-[30px] font-bold">Call History</h1>
             <p className="my-2 text-sm text-[#666777]">Monday, {new Date().toLocaleDateString()}</p>
             <div className="mb-8 flex lg:flex-nowrap flex-wrap w-full lg:justify-end gap-5">
                 <div className="flex items-center gap-2 rounded-md bg-[#F5F7F9] px-5 lg:py-0 py-2">
@@ -91,10 +96,24 @@ const CallHistory: React.FC = () => {
                     />
                     <BiSearchAlt2 className="text-lg text-gray-500" />
                 </div>
-                <CSVLink data={filteredData} className="flex items-center gap-2 bg-[#F5F7F9] px-2 py-1">
-                    Download csv
-                    <BsDownload className="text-md" />
-                </CSVLink>
+                {selectedData.length > 0 ? (
+                    <CSVLink
+                        data={selectedData}
+                        className="flex items-center gap-2 bg-[#F5F7F9] px-2 py-1"
+                        filename="billing_history.csv"
+                    >
+                        Download csv
+                        <BsDownload className="text-md" />
+                    </CSVLink>
+                ) : (
+                    <button
+                        className="flex items-center gap-2 bg-gray-300 px-2 py-1 cursor-not-allowed"
+                        disabled
+                    >
+                        Download csv
+                        <BsDownload className="text-md" />
+                    </button>
+                )}
                 <select
                     name="timeRange"
                     id="timeRange"
@@ -107,7 +126,7 @@ const CallHistory: React.FC = () => {
                     <option value="yearly">Yearly</option>
                 </select>
             </div>
-            <Table columns={columns} data={filteredData} />
+            <Table columns={columns} data={filteredData} onSelectedDataChange={handleSelectedDataChange} />
         </>
     );
 };

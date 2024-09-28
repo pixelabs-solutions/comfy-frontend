@@ -24,6 +24,6 @@
             }
         ]
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "ni18n.config.ts.js", "components/layouts/imageupload.jsx", "store/query/getapis.jsx", "app/admin/layout.jsx", "app/admin/dashboard/page.jsx", "app/admin/components/ManageUserTable.jsx", "app/admin/components/graph.jsx", "app/subadmin/dashboard/page.jsx", "app/sub-admin/callhistory/page.jsx", "app/sub-admin/billinghistory/page.jsx", "store/query/patchapis.jsx", "store/query/postapis.jsx", "app/signup/page.jsx", "app/auth/servicetokken.js", "components/layouts/sidebar.jsx", "app/client/rating/components/starrating.jsx"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "ni18n.config.ts.js", "components/layouts/imageupload.jsx", "store/query/getapis.jsx", "app/admin/layout.jsx", "app/admin/dashboard/page.jsx", "app/admin/components/ManageUserTable.jsx", "app/admin/components/graph.jsx", "app/subadmin/dashboard/page.jsx", "app/sub-admin/callhistory/page.jsx", "app/sub-admin/billinghistory/page.jsx", "store/query/patchapis.jsx", "store/query/postapis.jsx", "app/signup/page.jsx", "app/auth/servicetokken.js", "components/layouts/sidebar.jsx", "app/client/rating/components/starrating.jsx", "app/client/dashboard/components/languages.jsx"],
     "exclude": ["node_modules"]
 }

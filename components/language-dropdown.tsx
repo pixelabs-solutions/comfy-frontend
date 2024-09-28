@@ -1,11 +1,12 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { getTranslation } from '@/i18n';
 import { IRootState } from '@/store/store';
 import { toggleRTL } from '@/store/themeConfigSlice';
 import { GetCountries } from 'react-country-state-city';
+
 interface LanguageDropdownProps {
     setSelectedLanguage: (language: string) => void;
     setSelectedLanguage2: (language: string) => void;
@@ -13,6 +14,7 @@ interface LanguageDropdownProps {
     setPopoup2: (state: boolean) => void;
     Popoup: boolean;
     Popoup2: boolean;
+    onClose: () => void; // Add onClose prop
 }
 
 const LanguageDropdown = ({
@@ -21,7 +23,8 @@ const LanguageDropdown = ({
     setPopoup,
     setPopoup2,
     Popoup,
-    Popoup2
+    Popoup2,
+    onClose // Destructure onClose
 }: LanguageDropdownProps) => {
     const dispatch = useDispatch();
     const router = useRouter();
@@ -29,7 +32,7 @@ const LanguageDropdown = ({
     const themeConfig = useSelector((state: IRootState) => state.themeConfig);
 
     const [searchTerm, setSearchTerm] = useState('');
-    const [countriesList, setCountriesList] = useState<any[]>([]); // State for countries list
+    const [countriesList, setCountriesList] = useState<any[]>([]);
     const [filteredCountries, setFilteredCountries] = useState<any[]>([]);
 
     useEffect(() => {
@@ -37,7 +40,7 @@ const LanguageDropdown = ({
             try {
                 const countries = await GetCountries();
                 setCountriesList(countries);
-                setFilteredCountries(countries); // Initialize with all countries
+                setFilteredCountries(countries);
             } catch (error) {
                 console.error('Error fetching countries:', error);
             }
@@ -55,7 +58,7 @@ const LanguageDropdown = ({
     };
 
     const handleLanguageClick = (code: string, name: string) => {
-        if (Popoup === false) {
+        if (!Popoup) {
             setPopoup(true);
             setSelectedLanguage(name);
         } else {
@@ -64,32 +67,26 @@ const LanguageDropdown = ({
         }
         i18n.changeLanguage(code);
         console.log(`Selected language: ${name}`);
+        onClose(); // Close dropdown after selection
     };
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 top-0 z-[100] bg-[#b9b9b9] bg-opacity-[0.5]">
-            <div className={`translate-y-[90%] ${Popoup2 ? "translate-x-[290%]" : "translate-x-[385%]"} scrollbar-hidden left-[25%] top-[120%] z-[100] w-[210px] rounded-lg bg-white shadow-xl`}>
+        <div className="fixed inset-0 z-[100] bg-[#b9b9b9] bg-opacity-[0.5] flex justify-center items-center">
+            <div className={`w-[210px] rounded-lg bg-white shadow-xl p-2`}>
                 <input
                     type="text"
                     placeholder="Search countries..."
                     value={searchTerm}
                     onChange={handleSearchChange}
-                    className="w-full border-b px-3 py-3 rounded-t-lg outline-none"
+                    className="w-full border-b px-3 py-2 rounded-t-lg outline-none"
                 />
-                <ul
-                    className="grid h-[250px] w-[100%] grid-cols-1 gap-2 overflow-y-auto px-5 py-5 font-semibold text-dark dark:text-white-dark dark:text-white-light/90"
-                    style={{
-                        scrollbarWidth: 'none',
-                        msOverflowStyle: 'none',
-                        overflowY: 'scroll',
-                    }}
-                >
+                <ul className="max-h-[250px] overflow-y-auto font-semibold text-dark dark:text-white">
                     {filteredCountries.length > 0 ? (
                         filteredCountries.map((country) => (
-                            <li key={country.code || country.name} className="my-[1%]">
+                            <li key={country.code || country.name}>
                                 <button
                                     type="button"
-                                    className={`flex w-full rounded-lg p-2 hover:text-primary ${i18n.language === country.code ? 'bg-primary/10 text-primary' : ''}`}
+                                    className={`flex items-center w-full rounded-lg p-2 hover:text-primary ${i18n.language === country.code ? 'bg-primary/10 text-primary' : ''}`}
                                     onClick={() => handleLanguageClick(country.code || '', country.name || '')}
                                 >
                                     <img
@@ -97,12 +94,12 @@ const LanguageDropdown = ({
                                         alt="flag"
                                         className="h-5 w-5 rounded-full object-cover"
                                     />
-                                    <span className="ltr:ml-3 rtl:mr-3">{country.name}</span>
+                                    <span className="ml-3">{country.name}</span>
                                 </button>
                             </li>
                         ))
                     ) : (
-                        <li>No countries found</li>
+                        <li className="text-center">No countries found</li>
                     )}
                 </ul>
             </div>

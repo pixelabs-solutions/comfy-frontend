@@ -178,7 +178,7 @@ const Sidebar = () => {
                                             </li>
                                         )}
 
-                                        {!Notification && <Nottification  onClose={() => setNotifaction(true)} />}
+                                        {!Notification && <Nottification Role={Roles} onClose={() => setNotifaction(true)} />}
                                     </ul>
                                 </li>
                             </ul>

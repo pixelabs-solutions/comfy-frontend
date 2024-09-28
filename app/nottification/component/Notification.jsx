@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import MenuList from './adminmenu';
 
-const Notification_Comp = ({ DummyNottification }) => {
+const Notification_Comp = ({ DummyNottification ,AdminNot }) => {
     // State to manage clicked SVG IDs
     const [clickedSvgIds, setClickedSvgIds] = useState([]);
 
@@ -17,7 +18,8 @@ const Notification_Comp = ({ DummyNottification }) => {
     };
 
     return (
-        <div className="mt-10 flex flex-col gap-3">
+        <div className="mt-8 flex relative flex-col gap-3">
+            {AdminNot && <MenuList />}
             {DummyNottification.map((data) => (
                 <div key={data.id} className="rounded-lg border p-4 flex justify-between">
                     <h3 className='text-[#666777] text-sm'>{data.notification}</h3>

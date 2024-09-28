@@ -25,6 +25,8 @@ const BillingHistory = () => {
         { label: 'Amount', key: 'discount' },
         { label: 'Date', key: 'Date' },
         { label: '', key: 'edit' },
+    {    key: 'NotShowCheckbox'},
+
         { label: '', key: '' },
     ];
 

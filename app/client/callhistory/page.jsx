@@ -23,6 +23,8 @@ const CallHistory = () => {
         { label: 'Call Duration', key: 'Duration' },
         { label: 'Date and Time', key: 'Date' },
         { label: 'Bill', key: 'Bill' },
+    {    key: 'NotShowCheckbox'},
+
     ];
 
     // Handle loading and error states

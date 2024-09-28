@@ -103,6 +103,8 @@ const Manageuser = () => {
         { label: 'User Manager', key: 'discount' },
         { label: '', key: 'edit' },
         { label: '', key: '' },
+    {    key: 'NotShowCheckbox'},
+
     ]);
 
     // Update columns when roleManageUser changes

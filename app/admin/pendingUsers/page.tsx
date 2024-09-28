@@ -42,6 +42,7 @@ const data = apiData?.users.map((user: any) => ({
     category: user.gender,
     discount: `${user.firstName} ${user.lastName}`,
     statuspendinguser: ["Approved", "Reject"], // Example status
+    id: user.id,
 })) || [];
 
     return (

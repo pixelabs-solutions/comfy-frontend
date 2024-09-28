@@ -15,6 +15,8 @@ const BillingHistory = () => {
         { label: 'Status', key: 'status' },
         { label: 'Amount', key: 'amount' },
         { label: 'Actions', key: 'edit' },
+    {    key: 'NotShowCheckbox'},
+
     ];
 
     // Format date function

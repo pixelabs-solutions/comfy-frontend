@@ -1,17 +1,17 @@
 'use client';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react'; // Ensure useState is imported
 import Notification_Comp from './component/Notification';
 
-const Nottification = ({ onClose }) => {
+const Notification = ({ onClose, Role }) => {
+    const [AdminNot, SetAdminNot] = useState(false);
     const Notificationref = useRef(null);
-    const DummyNottification = [
-        { id: 0, notification: '2500usd sent to interpreter @steve' },
-        { id: 1, notification: '2500usd sent to interpreter @steve' },
-        { id: 2, notification: '2500usd sent to interpreter @steve' },
+    const DummyNotification = [
+        { id: 0, notification: '2500 USD sent to interpreter @steve' },
+        { id: 1, notification: '2500 USD sent to interpreter @steve' },
+        { id: 2, notification: '2500 USD sent to interpreter @steve' },
     ];
 
     useEffect(() => {
-        // Handler to close the box when clicking outside
         const handleClickOutside = (event) => {
             if (Notificationref.current && !Notificationref.current.contains(event.target)) {
                 if (typeof onClose === 'function') {
@@ -20,24 +20,31 @@ const Nottification = ({ onClose }) => {
             }
         };
 
-        // Add event listener for mousedown events
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
-            // Clean up the event listener on component unmount
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [onClose]);
 
+    const HandleOPenorclose = () => {
+         console.log(Role)
+        if (Role === 'admin') {
+            SetAdminNot((prev) => !prev); // Toggle AdminNot state
+        } else {
+            onClose(); 
+        }
+    };
+
     return (
-        <div className='bg-[#00000033] fixed left-0 right-0 top-0 p-8 bottom-0 z-[1000]'>
+        <div className='bg-[#00000033] fixed left-0 right-0 top-0 p-4 md:p-8 bottom-0 z-[1000]'>
             <aside
-                className='w-[25%] float-right bg-white p-8 h-full rounded-md'
+                className='w-full md:w-[25%] bg-white shadow-lg top-0 p-4 md:p-8 h-full float-right rounded-md overflow-y-auto'
                 ref={Notificationref} // Attach ref to this aside
             >
-                <div className='flex justify-between items-center'>
-                    <h2 className='text-2xl font-bold'>Notification</h2>
+                <div className='flex justify-between items-center mb-4'>
+                    <h2 className='text-xl md:text-2xl font-bold'>Notification</h2>
                     <svg
-                        onClick={onClose} 
+                        onClick={HandleOPenorclose}
                         width="30"
                         height="30"
                         viewBox="0 0 40 40"
@@ -52,10 +59,10 @@ const Nottification = ({ onClose }) => {
                         </g>
                     </svg>
                 </div>
-                <Notification_Comp DummyNottification={DummyNottification} />
+                <Notification_Comp AdminNot={AdminNot}  DummyNottification={DummyNotification} />
             </aside>
         </div>
     );
 };
 
-export default Nottification;
+export default Notification;

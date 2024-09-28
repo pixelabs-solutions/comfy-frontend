@@ -22,7 +22,10 @@ const Payment = () => {
                 </div>
             ),
             key: 'statusBilling',
+            
         },
+    {    key: 'NotShowCheckbox'},
+
         { label: 'Amount', key: 'discount' },
         { label: 'Date', key: 'Date' },
         { label: '', key: 'edit' },
