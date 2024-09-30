@@ -33,6 +33,7 @@ const PendingUsers = () => {
 const columns = [
     { label: selectedRole, key: 'product' },
     { label: 'User Manager', key: 'discount' },
+    {  key: 'NotShowCheckbox' },
     { label: '', key: 'statuspendinguser' }, // Combined status column
 ];
 
